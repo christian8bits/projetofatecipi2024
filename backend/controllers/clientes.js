@@ -1,10 +1,23 @@
 const  express = require('express')
 const rota = express.Router()
 
-rota.post('/clientes', async (requisicao, resposta) =>{
-    return resposta.json({
-        mensagem: 'Cliente acessado!'
+const db = require('./../db/models')
+
+
+rota.post('/clientes', async (requisicao, resposta) => {
+
+    var dados = requisicao.body
+    console.log(dados)
+
+    await db.Clientes.create(dados).then((dadosCliente) => {
+        return resposta.json({
+            mensagem: 'Cliente acessado!', dadosCliente
+        })
     })
+
+    
+
+ 
 })
 
 module.exports = rota
