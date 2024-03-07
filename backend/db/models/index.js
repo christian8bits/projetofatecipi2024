@@ -1,20 +1,28 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const fs = require('fs')
+const path = require('path')
+const Sequelize = require('sequelize')
+const process = require('process')
+const basename = path.basename(__filename)
+const env = process.env.NODE_ENV || 'development'
+const config = require(__dirname + '/../config/config.js')[env]
 const db = {};
 
 let sequelize;
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  sequelize = new Sequelize(process.env[config.use_env_variable], config)
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(config.database, config.username, config.password, config)
 }
+// confirma conexao com banco de dados
+try {
+  console.log('Banco de dados conetado com sucesso')
+} catch (error) {
+  console.log('Erro: Banco de dados NÃO conectado ! ', error)
+}
+
+
 
 fs
   .readdirSync(__dirname)
@@ -33,11 +41,12 @@ fs
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
-    db[modelName].associate(db);
+    db[modelName].associate(db)
   }
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.sequelize = sequelize
+db.Sequelize = Sequelize
 
-module.exports = db;
+
+module.exports = db
