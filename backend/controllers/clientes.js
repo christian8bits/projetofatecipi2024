@@ -25,7 +25,6 @@ rota.get('/clientes', async (requisicao, resposta) => {
     var ultimaPagina = 1
     const countCliente = await db.Clientes.count()
     console.log(countCliente)
-
     if (countCliente !== 0) {
         ultimaPagina = Math.ceil(countCliente / limite)
         console.log(ultimaPagina)
@@ -61,8 +60,29 @@ rota.get('/clientes', async (requisicao, resposta) => {
             mensagem: 'Erro: Nenhum registro de cliente encontrado!'
         })
     }
-})
+}) 
 
+// rota detalhes cliente ex: http://localhost:8080/cliente/1
+rota.get('/cliente/:id', async (requisicao, resposta) => {
+    const { id } = requisicao.params
+    console.log(id)
+
+    const cliente = await db.Clientes.findOne({
+        attributes:  ['id', 'nome', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero','bairro', 'uf', 'cidade', 'createdAt', 'updatedAt'],
+        where: { id },
+    })
+    console.log(cliente)
+
+    if (cliente) {
+        return resposta.json({
+            cliente: cliente.dataValues
+        })
+    } else {
+        return resposta.status(400).json({
+            mensagem: 'Erro: Cliente NÃO encontrado !'
+        })
+    }
+})
 
 
 module.exports = rota
