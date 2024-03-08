@@ -16,4 +16,53 @@ rota.post('/clientes', async (requisicao, resposta) => {
         })
     })
 })
+
+// rota listar clientes
+rota.get('/clientes', async (requisicao, resposta) => {
+    const { pagina = 1 } = requisicao.query
+    console.log(pagina)
+    const limite = 10
+    var ultimaPagina = 1
+    const countCliente = await db.Clientes.count()
+    console.log(countCliente)
+
+    if (countCliente !== 0) {
+        ultimaPagina = Math.ceil(countCliente / limite)
+        console.log(ultimaPagina)
+    } else {
+        return resposta.status(400).json({
+            mensagem: 'Erro: Nenhum usuário encontrado!'
+        })
+    }
+    // recupera usuários do banco de dados
+    const clientes = await db.Clientes.findAll({
+        attributes: ['id', 'nome', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero','bairro', 'uf', 'cidade' ],
+        order: [['id', 'DESC']], // ordenar em descrescente
+        // contabilizar limite de registros
+        offset: Number((pagina * limite) - limite),
+        limite: limite
+    })
+    // se achar o registro
+    if (clientes) {
+        var paginacao = {
+            path: '/clientes', //caminho
+            pagina, // Página atual
+            anterior_url: pagina - 1 >= 1 ? pagina - 1 : false,
+            proxima_url: Number(pagina) + Number(1) > ultimaPagina ? false : Number(pagina) + Number(1),
+            ultimaPagina,
+            total: countCliente
+        }
+        return resposta.json({
+            clientes,
+            paginacao
+        })
+    } else {
+        return resposta.status(400).json({
+            mensagem: 'Erro: Nenhum registro de cliente encontrado!'
+        })
+    }
+})
+
+
+
 module.exports = rota
