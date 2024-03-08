@@ -17,7 +17,7 @@ rota.post('/clientes', async (requisicao, resposta) => {
     })
 })
 
-// rota listar clientes
+// rota listar clientes http://localhost:8080/clientes
 rota.get('/clientes', async (requisicao, resposta) => {
     const { pagina = 1 } = requisicao.query
     console.log(pagina)
@@ -41,7 +41,7 @@ rota.get('/clientes', async (requisicao, resposta) => {
         offset: Number((pagina * limite) - limite),
         limite: limite
     })
-    // se achar o registro
+  
     if (clientes) {
         var paginacao = {
             path: '/clientes', //caminho
@@ -62,17 +62,17 @@ rota.get('/clientes', async (requisicao, resposta) => {
     }
 }) 
 
+
+
 // rota detalhes cliente ex: http://localhost:8080/cliente/1
 rota.get('/cliente/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     console.log(id)
-
     const cliente = await db.Clientes.findOne({
         attributes:  ['id', 'nome', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero','bairro', 'uf', 'cidade', 'createdAt', 'updatedAt'],
         where: { id },
     })
     console.log(cliente)
-
     if (cliente) {
         return resposta.json({
             cliente: cliente.dataValues
@@ -84,5 +84,19 @@ rota.get('/cliente/:id', async (requisicao, resposta) => {
     }
 })
 
+// rota editar
+rota.put('/clientes', async (requisicao, resposta) => {
+    var dados = requisicao.body
+    await db.Clientes.update(dados, { where: {id: dados.id}})
+        .then(() => {
+            return resposta.json({
+                mensagem: 'Cliente atualizado !'
+            })
+        }).catch(() => {
+                return resposta.status(400).json({
+                    mensagem: 'Erro: Cliente NÃO atualizado !'
+                })
+        })
+})
 
 module.exports = rota
