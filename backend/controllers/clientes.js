@@ -99,4 +99,20 @@ rota.put('/clientes', async (requisicao, resposta) => {
         })
 })
 
+// rota apagar
+rota.delete('/clientes/:id', async (requisicao, resposta) => {
+    const { id } = requisicao.params
+    await db.Clientes.destroy({
+    }).then(() => {
+        return resposta.json({
+            mensagem: 'Cliente deletado !'
+        });
+    }).catch(() => {
+        return resposta.status(400).json({
+            mensagem: "Erro: Cliente NÃO deletado"
+        });
+    });
+});
+
+
 module.exports = rota
