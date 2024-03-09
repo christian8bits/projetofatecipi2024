@@ -1,9 +1,8 @@
 # Projeto node + react + mysql
 
 ### Instalar versão LTS do node
-```
 https://nodejs.org/en/download
-```
+
 ### Criar base no mysql
 ```
 monitoraentregas
@@ -20,7 +19,6 @@ npm install
 npm run dev
 ```
 ### Acessar no navegador
-```
 http://localhost:3000
-```
+
 
