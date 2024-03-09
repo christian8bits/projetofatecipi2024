@@ -5,7 +5,7 @@ https://nodejs.org/en/download
 
 ### Criar base no mysql
 ```
-monitoraentregas
+nome_base_criada
 ```
 ### no diretório backend criar arquivo .env para definir as credencias do mysql
 ```
