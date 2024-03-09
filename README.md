@@ -1,12 +1,21 @@
 # Projeto node + react + mysql
 
-### depencencias do backend rodar dentro do diretório
-npm install
+### Instalar versão LTS do node
+https://nodejs.org/en/download
 
-### criar base no mysql
+### Criar base no mysql
 monitoraentregas
 
-### rodar projeto
+### Diretorio backend 
+npm install
+npx sequelize-cli db:migrate
 node app.js
+
+### Diretorio frontend 
+npm install
+npm run dev
+
+### Acessar no navegador
+http://localhost:3000
 
 
