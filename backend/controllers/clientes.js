@@ -1,4 +1,4 @@
-const  express = require('express')
+const express = require('express')
 const rota = express.Router()
 const db = require('./../db/models')
 
@@ -35,13 +35,12 @@ rota.get('/clientes', async (requisicao, resposta) => {
     }
     // recupera usuários do banco de dados
     const clientes = await db.Clientes.findAll({
-        attributes: ['id', 'nome', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero','bairro', 'uf', 'cidade' ],
+        attributes: ['id', 'nome', 'email', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero', 'bairro', 'uf', 'cidade'],
         order: [['id', 'DESC']], // ordenar em descrescente
         // contabilizar limite de registros
         offset: Number((pagina * limite) - limite),
         limite: limite
     })
-  
     if (clientes) {
         var paginacao = {
             path: '/clientes', //caminho
@@ -60,16 +59,14 @@ rota.get('/clientes', async (requisicao, resposta) => {
             mensagem: 'Erro: Nenhum registro de cliente encontrado!'
         })
     }
-}) 
-
-
+})
 
 // rota detalhes cliente ex: http://localhost:8080/cliente/1
 rota.get('/cliente/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     console.log(id)
     const cliente = await db.Clientes.findOne({
-        attributes:  ['id', 'nome', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero','bairro', 'uf', 'cidade', 'createdAt', 'updatedAt'],
+        attributes: ['id','nome','email','cpfcnpj','telefone','cep','logradouro','numero','bairro','uf','cidade','createdAt','updatedAt'],
         where: { id },
     })
     console.log(cliente)
@@ -83,24 +80,23 @@ rota.get('/cliente/:id', async (requisicao, resposta) => {
         })
     }
 })
-
-// rota editar
+// rota editar 
 rota.put('/clientes', async (requisicao, resposta) => {
     var dados = requisicao.body
-    await db.Clientes.update(dados, { where: {id: dados.id}})
+    await db.Clientes.update(dados, { where: { id: dados.id } })
         .then(() => {
             return resposta.json({
                 mensagem: 'Cliente atualizado !'
             })
         }).catch(() => {
-                return resposta.status(400).json({
-                    mensagem: 'Erro: Cliente NÃO atualizado !'
-                })
+            return resposta.status(400).json({
+                mensagem: 'Erro: Cliente NÃO atualizado !'
+            })
         })
 })
 
-// rota apagar
-rota.delete('/clientes/:id', async (requisicao, resposta) => {
+// rota apagar http://localhost:8080/cliente/1
+rota.delete('/cliente/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     await db.Clientes.destroy({
     }).then(() => {
@@ -113,6 +109,4 @@ rota.delete('/clientes/:id', async (requisicao, resposta) => {
         });
     });
 });
-
-
 module.exports = rota

@@ -22,8 +22,6 @@ try {
   console.log('Erro: Banco de dados NÃO conectado ! ', error)
 }
 
-
-
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -47,6 +45,4 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize
-
-
 module.exports = db

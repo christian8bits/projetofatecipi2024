@@ -20,5 +20,5 @@ app.use('/', clientes)
 
 // inicia o servidor na porta
 app.listen(porta, () => {
-    console.log('Servidor iniciado http://localhost:'+porta)
+    console.log('Servidor iniciado http://localhost:' + porta)
 })
