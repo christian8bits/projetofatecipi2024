@@ -9,13 +9,15 @@ export default function Home() {
   const [ultimaPagina, setLastPage] = useState("")
   const [message, setMessage] = useState("")
 
+
+
   const getClientes = async (pagina) => {
     if (pagina === undefined) {
       pagina = 1
     }
     setPage(pagina)
     console.log(pagina)
-    await axios.get("http://localhost:8080/clientes?page=" + pagina)
+    await axios.get("http://localhost:8080/clientes?pagina=" + pagina)
       .then((response) => {
         console.log(response.data.clientes)
         setData(response.data.clientes)
@@ -39,7 +41,7 @@ export default function Home() {
 
       //IMPLEMENTAR
 
-      
+
       getClientes(pagina)
     }
   }
@@ -58,27 +60,42 @@ export default function Home() {
       <main>
         <Link href={"/cadastrar"}><button type='button'>Cadastrar</button></Link>
         <h2>Listar Clientes</h2>
-        
+
         {message ? <p>{message}</p> : ""}
 
-        {data.map(cliente => (
-          <div key={cliente.id}>
-            <span>ID: {cliente.id}</span><br />
-            <span>Nome: {cliente.nome}</span><br />
-            <span>E-mail: {cliente.email}</span><br /><br />
-            <Link href={`/visualizar/${cliente.id}`}><button type='button'>Visualizar</button></Link>{" "}
-            <Link href={`/editar/${cliente.id}`}><button type='button'>Editar</button></Link>{" "}
-            <button type='button' onClick={() => deleteCliente(cliente.id)}>Apagar</button>{" "}<br />
-            <hr />
-          </div>
-        ))}
+        <table border="1">
+          <tbody>
+            <tr>
+              <th>Nº</th>
+              <th>Nome</th>
+              <th>E-mail</th>
+            </tr>
+            {data.map(cliente => (
+              <tr key={cliente.id}>
+                <td>{cliente.id} </td>
+                <td> {cliente.nome}</td>
+                <td>  {cliente.email}</td>
+                <td> <Link href={`/visualizar/${cliente.id}`}><button type='button'>Visualizar</button></Link>{" "}</td>
+                <td>  <Link href={`/editar/${cliente.id}`}><button type='button'>Editar</button></Link>{" "}</td>
+                <td> <button type='button' onClick={() => deleteCliente(cliente.id)}>Apagar</button>{" "}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+
 
         {pagina !== 1 ? <button type='button' onClick={() => getClientes(1)}>Primeira</button> : <button type='button' disabled>Primeira</button>}{" "}
+
         {pagina !== 1 ? <button type='button' onClick={() => getClientes(pagina - 1)}>{pagina - 1}</button> : ""}{" "}
         <button type='button' disabled>{pagina}</button>{" "}
         {pagina + 1 <= ultimaPagina ? <button type='button' onClick={() => getClientes(pagina + 1)}>{pagina + 1}</button> : ""}{" "}
         {pagina !== ultimaPagina ? <button type='button' onClick={() => getClientes(ultimaPagina)}>Última</button> : <button type='button' disabled>Última</button>}{" "}
         <br /><br />
+
+
+
+
       </main>
     </>
   )

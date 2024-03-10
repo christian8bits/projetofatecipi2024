@@ -21,12 +21,12 @@ rota.post('/clientes', async (requisicao, resposta) => {
 rota.get('/clientes', async (requisicao, resposta) => {
     const { pagina = 1 } = requisicao.query
     console.log(pagina)
-    const limite = 10
+    const limit = 10
     var ultimaPagina = 1
     const countCliente = await db.Clientes.count()
     console.log(countCliente)
     if (countCliente !== 0) {
-        ultimaPagina = Math.ceil(countCliente / limite)
+        ultimaPagina = Math.ceil(countCliente / limit)
         console.log(ultimaPagina)
     } else {
         return resposta.status(400).json({
@@ -36,17 +36,17 @@ rota.get('/clientes', async (requisicao, resposta) => {
     // recupera usuários do banco de dados
     const clientes = await db.Clientes.findAll({
         attributes: ['id', 'nome', 'email', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero', 'bairro', 'uf', 'cidade'],
-        order: [['id', 'DESC']], // ordenar em descrescente
-        // contabilizar limite de registros
-        offset: Number((pagina * limite) - limite),
-        limite: limite
+        order: [['id', 'ASC']], // ordenar em descrescente
+        // contabilizar limit de registros
+        offset: Number((pagina * limit) - limit),
+        limit: limit
     })
     if (clientes) {
         var paginacao = {
             path: '/clientes', //caminho
-            pagina, // Página atual
-            anterior_url: pagina - 1 >= 1 ? pagina - 1 : false,
-            proxima_url: Number(pagina) + Number(1) > ultimaPagina ? false : Number(pagina) + Number(1),
+            pagina, // Página atual 
+            pagina_anterior: pagina - 1 >= 1 ? pagina - 1 : false,
+            prox_pagina: Number(pagina) + Number(1) > ultimaPagina ? false : Number(pagina) + Number(1),
             ultimaPagina,
             total: countCliente
         }
