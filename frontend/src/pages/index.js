@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
+import { servDelete } from '@/services/servDelete'
 
 export default function Home() {
   const [data, setData] = useState([])
@@ -35,19 +36,14 @@ export default function Home() {
     getClientes()
   }, [])
 
-  // função excluir cliente 
+  // chama funcao excluir cliente 
   const deleteCliente = async (idCliente) => {
     if (window.confirm('Tem certeza que deseja apagar?')) {
-
-      //IMPLEMENTAR
-
-
+      const response = await servDelete('http://localhost:8080/clientes/' + idCliente)
+      setMessage(response)
       getClientes(pagina)
     }
   }
-
-
-
 
   return (
     <>
