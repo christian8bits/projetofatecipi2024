@@ -12,7 +12,7 @@ export const servDelete = async (url) => {
             if (err.response) {
                 mensagem = err.response.data.mensagem
             } else {
-                mensagem = 'Erro: Tente novamente '
+                mensagem = 'Erro: Tente novamente'
             }
         })
 

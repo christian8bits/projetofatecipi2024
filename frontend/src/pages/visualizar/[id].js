@@ -42,18 +42,21 @@ export default function Visualizar() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-
                 <Link href={'/'}><button type='button'>Listar</button></Link>{' '}             
                 <Link href={`/editar/${data.id}`}><button type='button'>Editar</button></Link>{' '}
-
-                <h2>Detalhes do Cliente</h2>
-
-                {message ? <p>{message}</p> : ''}
-
-                <span>ID: {data.id}</span><br />
-                <span>Nome: {data.nome}</span><br />
-                <span>E-mail: {data.email}</span><br />
-
+                <h3>Detalhes do Cliente {data.id}</h3>
+                <span><strong>Nome:</strong> {data.nome}</span><br />
+                <span><strong>E-mail:</strong> {data.email}</span><br />
+                <span><strong>CPF/CNPJ:</strong> {data.cpfcnpj}</span><br />
+                <span><strong>Telefone:</strong> {data.telefone}</span>
+                <h3>Endereço</h3>
+                <span><strong>Logradouro:</strong> {data.logradouro}</span><br />
+                <span><strong>Numero:</strong> {data.numero}</span><br />
+                <span><strong>Bairro:</strong> {data.bairro}</span><br />
+                <span><strong>Complemento:</strong> {data.complemento}</span><br />
+                <span><strong>Cidade:</strong> {data.cidade}</span><br />
+                <span><strong>UF:</strong> {data.uf}</span><br />
+                <span><strong>CEP:</strong> {data.cep}</span><br />
             </main>
         </>
     )

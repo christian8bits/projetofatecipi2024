@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       telefone: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       cep: {
         type: Sequelize.STRING
@@ -31,6 +31,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       bairro: {
+        type: Sequelize.STRING
+      },
+      complemento: {
         type: Sequelize.STRING
       },
       uf: {
@@ -47,9 +50,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    })
+    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Clientes')
+    await queryInterface.dropTable('Clientes');
   }
-}
+};

@@ -20,7 +20,7 @@ export default function Editar() {
             .then((response) => { // Acessa o then quando a API retornar status 200
                 console.log(response.data.cliente);
                 setData(response.data.cliente);
-            }).catch((err) => { 
+            }).catch((err) => {
                 if (err.response) {
                     setMessage(err.response.data.mensagem)
                 } else {
@@ -32,7 +32,7 @@ export default function Editar() {
     useEffect(() => {
         getCliente()
     }, [id])
-    
+
     const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value })
 
     const editarCliente = async (e) => {
@@ -68,16 +68,35 @@ export default function Editar() {
             </Head>
             <main>
                 <Link href={'/'}><button type='button'>Listar</button></Link>{' '}
-                    <h2>Editar Cliente {data.nome}</h2>
-                        {message ? <p>{message}</p> : ''}
-                        <form onSubmit={editarCliente}>
-                            <label>código: {id} </label><br />
-                            <label>Nome: </label>
-                            <input type='text' name='nome'  onChange={valueInput} value={data.nome} /><br /><br />
-                            <label>E-mail: </label>
-                            <input type='email' name='email'  onChange={valueInput} value={data.email} /><br /><br />
-                            <button type='submit'>Salvar</button>
-                        </form>
+                <h2>Editar Cliente {data.nome}</h2>
+                {message ? <p>{message}</p> : ''}
+                <form onSubmit={editarCliente}>
+                    <label>código: {id} </label><br />
+                    <label>Nome:  </label>
+                    <input type='text' name='nome' placeholder='Nome Completo' onChange={valueInput} value={data.nome} /> <br /><br />
+                    <label>E-Mail: </label>
+                    <input type='email' name='email' placeholder='email@email.com' onChange={valueInput} value={data.email} /> <br /><br />
+                    <label>CPF/CNPJ:  </label>
+                    <input type='text' name='cpfcnpj' placeholder=' ' onChange={valueInput} value={data.cpfcnpj} /> <br /><br />
+                    <label>Telefone:  </label>
+                    <input type='text' name='telefone' placeholder=' ' onChange={valueInput} value={data.telefone} /> <br /><br />
+                    <label>CEP:  </label>
+                    <input type='text' name='cep' placeholder=' ' onChange={valueInput} value={data.cep} />
+                    <button type='button' onClick={() => buscaCEP(data.cep)}>Validar</button>{" "} <br /><br />
+                    <label>Logradouro:  </label>
+                    <input type='text' name='logradouro' placeholder=' ' onChange={valueInput} value={data.logradouro} /> <br /><br />
+                    <label>Numero:  </label>
+                    <input type='text' name='numero' placeholder=' ' onChange={valueInput} value={data.numero} /> <br /><br />
+                    <label>Bairro:  </label>
+                    <input type='text' name='bairro' placeholder=' ' onChange={valueInput} value={data.bairro} /> <br /><br />
+                    <label>Complemento:  </label>
+                    <input type='text' name='complemento' placeholder=' ' onChange={valueInput} value={data.complemento} /> <br /><br />
+                    <label>UF:  </label>
+                    <input type='text' name='uf' placeholder='' onChange={valueInput} value={data.uf} /> <br /><br />
+                    <label>Cidade:  </label>
+                    <input type='text' name='cidade' placeholder=' ' onChange={valueInput} value={data.cidade} /> <br /><br />
+                    <button type='submit'>Salvar</button>
+                </form>
             </main>
         </>
     )

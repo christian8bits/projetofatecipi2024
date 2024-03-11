@@ -1,5 +1,5 @@
 const express = require('express')
-const cors = require('cors');
+const cors = require('cors')
 //const db = require('./db/models')
 const app = express()
 const porta = 8080

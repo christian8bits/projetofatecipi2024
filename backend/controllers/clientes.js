@@ -35,7 +35,7 @@ rota.get('/clientes', async (requisicao, resposta) => {
     }
     // recupera usuários do banco de dados
     const clientes = await db.Clientes.findAll({
-        attributes: ['id', 'nome', 'email', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero', 'bairro', 'uf', 'cidade'],
+        attributes: ['id', 'nome', 'email', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero', 'bairro', 'complemento', 'uf', 'cidade'],
         order: [['id', 'ASC']], // ordenar em descrescente
         // contabilizar limit de registros
         offset: Number((pagina * limit) - limit),
@@ -66,7 +66,7 @@ rota.get('/cliente/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     console.log(id)
     const cliente = await db.Clientes.findOne({
-        attributes: ['id','nome','email','cpfcnpj','telefone','cep','logradouro','numero','bairro','uf','cidade','createdAt','updatedAt'],
+        attributes: ['id', 'nome', 'email', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero', 'bairro', 'complemento', 'uf', 'cidade', 'createdAt', 'updatedAt'],
         where: { id },
     })
     console.log(cliente)
@@ -95,18 +95,19 @@ rota.put('/clientes', async (requisicao, resposta) => {
         })
 })
 
-// rota apagar http://localhost:8080/cliente/1
-rota.delete('/cliente/:id', async (requisicao, resposta) => {
+// rota apagar ex: http://localhost:8080/clientes/1
+rota.delete('/clientes/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     await db.Clientes.destroy({
+        where: { id }
     }).then(() => {
         return resposta.json({
             mensagem: 'Cliente deletado !'
-        });
+        })
     }).catch(() => {
         return resposta.status(400).json({
             mensagem: "Erro: Cliente NÃO deletado"
-        });
-    });
-});
+        })
+    })
+})
 module.exports = rota

@@ -4,11 +4,13 @@ import axios from 'axios'
 import Link from 'next/link'
 import { servDelete } from '@/services/servDelete'
 
+
 export default function Home() {
   const [data, setData] = useState([])
-  const [pagina, setPage] = useState("")
-  const [ultimaPagina, setLastPage] = useState("")
-  const [message, setMessage] = useState("")
+  const [pagina, setPage] = useState('')
+  const [ultimaPagina, setLastPage] = useState('')
+  const [message, setMessage] = useState('')
+  const [pesquisa, setPesquisa] = useState('')
 
 
 
@@ -44,7 +46,7 @@ export default function Home() {
       getClientes(pagina)
     }
   }
-
+  console.log(pesquisa)
   return (
     <>
       <Head>
@@ -58,6 +60,15 @@ export default function Home() {
         <h2>Listar Clientes</h2>
 
         {message ? <p>{message}</p> : ""}
+        <label>Pesquisa:  </label>
+        <input
+          name='pesquisa' 
+          type='text'
+          value={pesquisa}
+          onChange={(ev) => setPesquisa(ev.target.value)}
+        /> <br /><br />
+        
+       
 
         <table border="1">
           <tbody>
@@ -65,12 +76,14 @@ export default function Home() {
               <th>Nº</th>
               <th>Nome</th>
               <th>E-mail</th>
+              <th>CPF</th>
             </tr>
             {data.map(cliente => (
               <tr key={cliente.id}>
                 <td>{cliente.id} </td>
                 <td> {cliente.nome}</td>
                 <td>  {cliente.email}</td>
+                <td>  {cliente.cpfcnpj}</td>
                 <td> <Link href={`/visualizar/${cliente.id}`}><button type='button'>Visualizar</button></Link>{" "}</td>
                 <td>  <Link href={`/editar/${cliente.id}`}><button type='button'>Editar</button></Link>{" "}</td>
                 <td> <button type='button' onClick={() => deleteCliente(cliente.id)}>Apagar</button>{" "}</td>
@@ -78,8 +91,6 @@ export default function Home() {
             ))}
           </tbody>
         </table>
-
-
 
         {pagina !== 1 ? <button type='button' onClick={() => getClientes(1)}>Primeira</button> : <button type='button' disabled>Primeira</button>}{" "}
 
