@@ -7,8 +7,7 @@ import { useEffect, useState } from 'react'
 export default function Visualizar() {
     const [data, setData] = useState([])
     const [message, setMessage] = useState('')
-    const router = useRouter();
-    //console.log(router.query.id);
+    const router = useRouter()
     const [id] = useState(router.query.id)
     const getCliente = async () => {
         if (id === undefined) {
@@ -18,8 +17,8 @@ export default function Visualizar() {
 
         await axios.get('http://localhost:8080/cliente/' + id)
             .then((response) => { // Acessa o then quando a API retornar status 200
-                console.log(response.data.cliente);
-                setData(response.data.cliente);
+                console.log(response.data.cliente)
+                setData(response.data.cliente)
             }).catch((err) => { 
                 if (err.response) {
                     setMessage(err.response.data.mensagem)
@@ -42,8 +41,8 @@ export default function Visualizar() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <Link href={'/'}><button type='button'>Listar</button></Link>{' '}             
-                <Link href={`/editar/${data.id}`}><button type='button'>Editar</button></Link>{' '}
+                <Link href={'/listarClientes'}><button type='button'>Listar</button></Link>{' '}             
+                <Link href={`/editarCliente/${data.id}`}><button type='button'>Editar</button></Link>{' '}
                 <h3>Detalhes do Cliente {data.id}</h3>
                 <span><strong>Nome:</strong> {data.nome}</span><br />
                 <span><strong>E-mail:</strong> {data.email}</span><br />

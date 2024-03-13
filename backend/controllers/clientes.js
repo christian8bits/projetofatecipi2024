@@ -1,9 +1,9 @@
 const express = require('express')
-const rota = express.Router()
+const app = express.Router()
 const db = require('./../db/models')
 
 // rota cadastrar cliente em http://localhost:8080/clientes
-rota.post('/clientes', async (requisicao, resposta) => {
+app.post('/clientes', async (requisicao, resposta) => {
     var dados = requisicao.body
     console.log(dados)
     await db.Clientes.create(dados).then((dadosCliente) => {
@@ -18,7 +18,7 @@ rota.post('/clientes', async (requisicao, resposta) => {
 })
 
 // rota listar clientes http://localhost:8080/clientes
-rota.get('/clientes', async (requisicao, resposta) => {
+app.get('/clientes', async (requisicao, resposta) => {
     const { pagina = 1 } = requisicao.query
     console.log(pagina)
     const limit = 10
@@ -30,21 +30,21 @@ rota.get('/clientes', async (requisicao, resposta) => {
         console.log(ultimaPagina)
     } else {
         return resposta.status(400).json({
-            mensagem: 'Erro: Nenhum usuário encontrado!'
+            mensagem: 'Atenção: Nenhum cliente registrado!'
         })
     }
     // recupera usuários do banco de dados
     const clientes = await db.Clientes.findAll({
         attributes: ['id', 'nome', 'email', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero', 'bairro', 'complemento', 'uf', 'cidade'],
-        order: [['id', 'ASC']], // ordenar em descrescente
+        order: [['id', 'ASC']],
         // contabilizar limit de registros
         offset: Number((pagina * limit) - limit),
         limit: limit
     })
     if (clientes) {
         var paginacao = {
-            path: '/clientes', //caminho
-            pagina, // Página atual 
+            path: '/clientes', 
+            pagina, // página atual 
             pagina_anterior: pagina - 1 >= 1 ? pagina - 1 : false,
             prox_pagina: Number(pagina) + Number(1) > ultimaPagina ? false : Number(pagina) + Number(1),
             ultimaPagina,
@@ -56,13 +56,13 @@ rota.get('/clientes', async (requisicao, resposta) => {
         })
     } else {
         return resposta.status(400).json({
-            mensagem: 'Erro: Nenhum registro de cliente encontrado!'
+            mensagem: 'Atenção: Nenhum cliente registrado!'
         })
     }
 })
 
 // rota detalhes cliente ex: http://localhost:8080/cliente/1
-rota.get('/cliente/:id', async (requisicao, resposta) => {
+app.get('/cliente/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     console.log(id)
     const cliente = await db.Clientes.findOne({
@@ -76,38 +76,38 @@ rota.get('/cliente/:id', async (requisicao, resposta) => {
         })
     } else {
         return resposta.status(400).json({
-            mensagem: 'Erro: Cliente NÃO encontrado !'
+            mensagem: 'Erro: Cliente NÃO encontrado!'
         })
     }
 })
 // rota editar 
-rota.put('/clientes', async (requisicao, resposta) => {
+app.put('/clientes', async (requisicao, resposta) => {
     var dados = requisicao.body
     await db.Clientes.update(dados, { where: { id: dados.id } })
         .then(() => {
             return resposta.json({
-                mensagem: 'Cliente atualizado !'
+                mensagem: 'Cliente atualizado!'
             })
         }).catch(() => {
             return resposta.status(400).json({
-                mensagem: 'Erro: Cliente NÃO atualizado !'
+                mensagem: 'Erro: Cliente NÃO atualizado!'
             })
         })
 })
 
 // rota apagar ex: http://localhost:8080/clientes/1
-rota.delete('/clientes/:id', async (requisicao, resposta) => {
+app.delete('/clientes/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     await db.Clientes.destroy({
         where: { id }
     }).then(() => {
         return resposta.json({
-            mensagem: 'Cliente deletado !'
+            mensagem: 'Cliente deletado!'
         })
     }).catch(() => {
         return resposta.status(400).json({
-            mensagem: "Erro: Cliente NÃO deletado"
+            mensagem: "Erro: Cliente NÃO deletado!"
         })
     })
 })
-module.exports = rota
+module.exports = app

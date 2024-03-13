@@ -7,19 +7,18 @@ import { useEffect, useState } from 'react'
 export default function Editar() {
     const [data, setData] = useState([])
     const [message, setMessage] = useState('')
-    const router = useRouter();
-    //console.log(router.query.id);
+    const router = useRouter()
     const [id] = useState(router.query.id)
     const getCliente = async () => {
         if (id === undefined) {
-            setMessage('Erro: Cliente não encontrado!')
+            setMessage('Erro: Cliente NÃO encontrado!')
             return
         }
 
         await axios.get('http://localhost:8080/cliente/' + id)
-            .then((response) => { // Acessa o then quando a API retornar status 200
-                console.log(response.data.cliente);
-                setData(response.data.cliente);
+            .then((response) => {
+                console.log(response.data.cliente)
+                setData(response.data.cliente)
             }).catch((err) => {
                 if (err.response) {
                     setMessage(err.response.data.mensagem)
@@ -36,27 +35,23 @@ export default function Editar() {
     const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value })
 
     const editarCliente = async (e) => {
-        e.preventDefault();
-
+        e.preventDefault()
         const headers = {
             'headers': {
                 'Content-Type': 'application/json'
             }
         }
-
         await axios.put('http://localhost:8080/clientes', data, headers)
             .then((response) => {
-                setMessage(response.data.mensagem);
+                setMessage(response.data.mensagem)
             }).catch((err) => {
                 if (err.response) {
                     setMessage(err.response.data.mensagem)
                 } else {
-                    setMessage('Erro: Tente novamente mais tarde ou entre contato com ...!')
+                    setMessage('Erro: Tente novamente mais tarde ou solicite ajuda ao suporte!')
                 }
             })
     }
-
-
 
     return (
         <>
@@ -67,7 +62,7 @@ export default function Editar() {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <main>
-                <Link href={'/'}><button type='button'>Listar</button></Link>{' '}
+                <Link href={'/listarClientes'}><button type='button'>Listar</button></Link>{' '}
                 <h2>Editar Cliente {data.nome}</h2>
                 {message ? <p>{message}</p> : ''}
                 <form onSubmit={editarCliente}>
@@ -82,7 +77,7 @@ export default function Editar() {
                     <input type='text' name='telefone' placeholder=' ' onChange={valueInput} value={data.telefone} /> <br /><br />
                     <label>CEP:  </label>
                     <input type='text' name='cep' placeholder=' ' onChange={valueInput} value={data.cep} />
-                    <button type='button' onClick={() => buscaCEP(data.cep)}>Validar</button>{" "} <br /><br />
+                    <button type='button' onClick={() => buscaCEP(data.cep)}>Validar</button>{' '} <br /><br />
                     <label>Logradouro:  </label>
                     <input type='text' name='logradouro' placeholder=' ' onChange={valueInput} value={data.logradouro} /> <br /><br />
                     <label>Numero:  </label>
@@ -100,4 +95,5 @@ export default function Editar() {
             </main>
         </>
     )
+
 }

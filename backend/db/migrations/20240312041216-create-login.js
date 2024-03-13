@@ -10,14 +10,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       usuario: {
-        allowNull: false,
+        type: Sequelize.STRING
+      },
+      email: {
         type: Sequelize.STRING
       },
       senha: {
-        allowNull: false,
         type: Sequelize.STRING
       },
-      createdAt: {
+       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
@@ -25,9 +26,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Logins');
+    await queryInterface.dropTable('Logins')
   }
-};
+}
