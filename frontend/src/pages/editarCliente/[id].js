@@ -3,10 +3,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { IMaskInput } from 'react-imask'
 
 export default function Editar() {
     const [data, setData] = useState([])
-    const [message, setMessage] = useState('')
+    const [mensagem, setMessage] = useState('')
     const router = useRouter()
     const [id] = useState(router.query.id)
     const getCliente = async () => {
@@ -34,6 +35,40 @@ export default function Editar() {
 
     const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value })
 
+    const buscaCEP = async (cepInput) => {
+        console.log(cepInput)
+        console.log(data.cep)
+        await axios.get('https://viacep.com.br/ws/'+cepInput+'/json')
+        .then((response) => { 
+            console.log('Busca CEP')
+            console.log(response.data)
+            console.log(data.telefone)
+
+            setData({
+            nome: data.nome,
+            cpfcnpj: data.cpfcnpj,
+            email: data.email,
+            telefone: data.telefone,
+            cep: data.cep,
+            logradouro: response.data.logradouro,
+            numero: '',
+            bairro: response.data.bairro,
+            cidade: response.data.localidade,
+            complemento: response.data.complemento,
+            uf: response.data.uf
+            })
+        }).catch((err) => {
+            if (err.response) {
+                setMessage(err.response.data)
+            } else {
+                setMessage('Erro: Tente novamente mais tarde!')
+            }
+        })
+      }
+
+
+
+
     const editarCliente = async (e) => {
         e.preventDefault()
         const headers = {
@@ -53,6 +88,12 @@ export default function Editar() {
             })
     }
 
+
+
+    const masktel = [{ mask: '(00) 0000-0000' }, { mask: '(00) 00000-0000' }]
+    const maskcep = [{ mask: '00000-000'}]
+    const maskcpf = [{ mask: '000.000.000-00' }, { mask: '00.000.000/0000-00' }]
+    const maskuf = [{ mask: 'aa'}]
     return (
         <>
             <Head>
@@ -64,7 +105,7 @@ export default function Editar() {
             <main>
                 <Link href={'/listarClientes'}><button type='button'>Listar</button></Link>{' '}
                 <h2>Editar Cliente {data.nome}</h2>
-                {message ? <p>{message}</p> : ''}
+                {mensagem ? <p>{mensagem}</p> : ''}
                 <form onSubmit={editarCliente}>
                     <label>código: {id} </label><br />
                     <label>Nome:  </label>
@@ -72,25 +113,29 @@ export default function Editar() {
                     <label>E-Mail: </label>
                     <input type='email' name='email' placeholder='email@email.com' onChange={valueInput} value={data.email} /> <br /><br />
                     <label>CPF/CNPJ:  </label>
-                    <input type='text' name='cpfcnpj' placeholder=' ' onChange={valueInput} value={data.cpfcnpj} /> <br /><br />
+                    <IMaskInput mask={maskcpf} name='cpfcnpj' placeholder='000.000.000-00' onChange={valueInput} value={data.cpfcnpj}/> <br /><br />
                     <label>Telefone:  </label>
-                    <input type='text' name='telefone' placeholder=' ' onChange={valueInput} value={data.telefone} /> <br /><br />
+                    <IMaskInput mask={masktel} name='telefone' placeholder='(00) 00000-0000' onChange={valueInput} value={data.telefone}/> <br /><br />
+
                     <label>CEP:  </label>
-                    <input type='text' name='cep' placeholder=' ' onChange={valueInput} value={data.cep} />
-                    <button type='button' onClick={() => buscaCEP(data.cep)}>Validar</button>{' '} <br /><br />
+                    <IMaskInput mask={maskcep} name='cep' placeholder='00000-000 ' onChange={valueInput} value={data.cep} />  
+                    <button type='button' onClick={() => buscaCEP(data.cep)}>Validar</button><br /><br />
+
+                    
                     <label>Logradouro:  </label>
                     <input type='text' name='logradouro' placeholder=' ' onChange={valueInput} value={data.logradouro} /> <br /><br />
                     <label>Numero:  </label>
-                    <input type='text' name='numero' placeholder=' ' onChange={valueInput} value={data.numero} /> <br /><br />
+                    <input type='number' name='numero' placeholder=' ' onChange={valueInput} value={data.numero} /> <br /><br />
                     <label>Bairro:  </label>
                     <input type='text' name='bairro' placeholder=' ' onChange={valueInput} value={data.bairro} /> <br /><br />
                     <label>Complemento:  </label>
                     <input type='text' name='complemento' placeholder=' ' onChange={valueInput} value={data.complemento} /> <br /><br />
                     <label>UF:  </label>
-                    <input type='text' name='uf' placeholder='' onChange={valueInput} value={data.uf} /> <br /><br />
+                    <IMaskInput mask={maskuf} name='uf' placeholder='' onChange={valueInput} value={data.uf} /> <br /><br />
                     <label>Cidade:  </label>
                     <input type='text' name='cidade' placeholder=' ' onChange={valueInput} value={data.cidade} /> <br /><br />
-                    <button type='submit'>Salvar</button>
+
+                    <button type='submit'>Salvar</button><br /><br />
                 </form>
             </main>
         </>

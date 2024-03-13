@@ -19,7 +19,7 @@ export default function Cadastrar() {
         cidade: ''
     })
 
-    const [message, setMessage] = useState('')
+    const [mensagem, setMessage] = useState('')
     const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value })
 
     const addUser = async (e) => {
@@ -66,14 +66,16 @@ export default function Cadastrar() {
         .then((response) => { 
             console.log('Busca CEP')
             console.log(response.data)
-            console.log(cepInput)
+            console.log(data.telefone)
+
             setData({
             nome: data.nome,
             cpfcnpj: data.cpfcnpj,
             email: data.email,
-            telefone: data.telefone,  
+            telefone: data.telefone,
             cep: data.cep,
             logradouro: response.data.logradouro,
+            numero: '',
             bairro: response.data.bairro,
             cidade: response.data.localidade,
             complemento: response.data.complemento,
@@ -89,7 +91,7 @@ export default function Cadastrar() {
       }
 
       const masktel = [{ mask: '(00) 0000-0000' }, { mask: '(00) 00000-0000' }]
-      const maskcep = [{ mask: '00000-000' }]
+      const maskcep = [{ mask: '00000-000'}]
       const maskcpf = [{ mask: '000.000.000-00' }, { mask: '00.000.000/0000-00' }]
       const maskuf = [{ mask: 'aa'}]
     return (
@@ -104,7 +106,7 @@ export default function Cadastrar() {
                 <Link href={'/listarClientes'}><button type='button'>Listar</button></Link>
 
                 <h2>Cadastrar Cliente</h2>
-                {message ? <p>{message}</p> : ''}
+                {mensagem ? <p>{mensagem}</p> : ''}
 
                 <form onSubmit={addUser}>
                     <label>Nome:  </label>
@@ -114,11 +116,11 @@ export default function Cadastrar() {
                     <label>CPF/CNPJ:  </label>
                     <IMaskInput mask={maskcpf} name='cpfcnpj' placeholder='000.000.000-00' onChange={valueInput} value={data.cpfcnpj}/> <br /><br />
                     <label>Telefone:  </label>
-                    <IMaskInput mask={masktel} name='telefone' placeholder='(00) 00000-0000 ' onChange={valueInput} value={data.telefone}/> <br /><br />
+                    <IMaskInput mask={masktel} name='telefone' placeholder='(00) 00000-0000' onChange={valueInput} value={data.telefone}/> <br /><br />
 
                     <label>CEP:  </label>
                     <IMaskInput mask={maskcep} name='cep' placeholder='00000-000 ' onChange={valueInput} value={data.cep} />  
-                    <button type='button' onClick={() => buscaCEP(data.cep)}>Validar</button>{' '} <br /><br />
+                    <button type='button' onClick={() => buscaCEP(data.cep)}>Validar</button> <br /><br />
 
                     
                     <label>Logradouro:  </label>

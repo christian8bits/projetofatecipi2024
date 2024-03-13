@@ -23,11 +23,10 @@ app.get('/logins', async (requisicao, resposta) => {
 app.post('/cadastrarlogin', async (req, res) => {
     var dados = req.body
     dados.senha = await bcrypt.hash(dados.senha, 8)
-    await db.Logins.create(dados)
-    .then(() => {
+    await db.Logins.create(dados).then((dadosLogin) => {
         return res.json({
             erro: false,
-            mensagem: 'Usuário cadastrado com sucesso!'
+            mensagem: 'Usuário cadastrado com sucesso!', dadosLogin
         })
     }).catch(() => {
         return res.status(400).json({

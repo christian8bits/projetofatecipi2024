@@ -1,12 +1,16 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 export default function Home() {
   const [data, setData] = useState({
     usuario: '',
     senha: ''
   })
+
+  const router = useRouter()
 
   const [mensagem, setMessage] = useState('')
   const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value });
@@ -25,7 +29,10 @@ export default function Home() {
           usuario: '',
           senha: ''
         })
-      }).catch((err) => { 
+        console.log('BORA LOGAR')
+        router.push('/listarClientes')
+
+      }).catch((err) => {
         if (err.response) {
           setMessage(err.response.data.mensagem)
         } else {
@@ -43,21 +50,18 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <div id='centralizaDiv'>
-          <h2>Entrar - Monitoramento de Envios</h2>
-          <div id='verticalDiv'>
-            <form>
-              <label>Usuário: </label>
-              <input type='text' name='usuario' placeholder='Digite o nome' onChange={valueInput} value={data.usuario} /><br /><br />
-              <label>Senha: </label>
-              <input type='password' name='senha' placeholder='Digite sua Senha' onChange={valueInput} value={data.senha} /><br /><br />
-              <Link href={'/listarClientes'}><button type='button'>Entrar</button></Link>{' '}
-              <Link href={'/cadastrarLogin'}><button type='button'>Cadastrar</button></Link>{' '}
-            </form>
-            <br /><br />
-            <p>Sistema para acompanhar envios de livros</p>
-          </div>
-        </div>
+        <h2>Entrar - Monitoramento de Envios</h2>
+        {mensagem ? <p>{mensagem}</p> : ''}
+        <form onSubmit={entrarLogin}>
+          <label>Usuário: </label>
+          <input type='text' name='usuario' placeholder='Digite o nome' onChange={valueInput} value={data.usuario} /><br /><br />
+          <label>Senha: </label>
+          <input type='password' name='senha' placeholder='Digite sua Senha' onChange={valueInput} value={data.senha} /><br /><br />
+          <Link href={'/cadastrarLogin'}> <button type='button'>Cadastrar</button></Link>{' '}
+          <button type='submit'>Entrar</button><br /><br />
+        </form>
+        <p>Sistema para acompanhar envios de livros</p>
+
       </main>
     </>
   )
