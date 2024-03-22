@@ -14,16 +14,16 @@ export default function Home() {
 
 
 
-  const getClientes = async (pagina) => {
+  const getLivros = async (pagina) => {
     if (pagina === undefined) {
       pagina = 1
     }
     setPage(pagina)
     console.log(pagina)
-    await axios.get("http://localhost:8080/clientes?pagina=" + pagina)
+    await axios.get("http://localhost:8080/Livros?pagina=" + pagina)
       .then((response) => {
-        console.log(response.data.clientes)
-        setData(response.data.clientes)
+        console.log(response.data.Livros)
+        setData(response.data.Livros)
         setLastPage(response.data.paginacao.ultimaPagina)
       }).catch((err) => {
         if (err.response) {
@@ -35,15 +35,15 @@ export default function Home() {
   }
 
   useEffect(() => {
-    getClientes()
+    getLivros()
   }, [])
 
-  // chama funcao excluir cliente 
-  const deleteCliente = async (idCliente) => {
+  // chama funcao excluir Livro 
+  const deleteLivro = async (idLivro) => {
     if (window.confirm('Tem certeza que deseja apagar?')) {
-      const response = await servDelete('http://localhost:8080/clientes/' + idCliente)
+      const response = await servDelete('http://localhost:8080/Livros/' + idLivro)
       setMessage(response)
-      getClientes(pagina)
+      getLivros(pagina)
     }
   }
   console.log(pesquisa)
@@ -56,8 +56,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Link href={"/cadastrarCliente"}><button type='button'>Cadastrar</button></Link>
-        <h2>Listar Clientes</h2>
+        <Link href={"/cadastrarLivro"}><button type='button'>Cadastrar</button></Link>
+        <h2>Listar Livros</h2>
 
         {message ? <p>{message}</p> : ""}
         <label>Pesquisa:  </label>
@@ -74,30 +74,30 @@ export default function Home() {
           <tbody>
             <tr>
               <th>Nº</th>
-              <th>Nome</th>
-              <th>E-mail</th>
-              <th>CPF</th>
+              <th>Titulo</th>
+              <th>Autor</th>
+              <th>Editora</th>
             </tr>
-            {data.map(cliente => (
-              <tr key={cliente.id}>
-                <td>{cliente.id} </td>
-                <td> {cliente.nome}</td>
-                <td>  {cliente.email}</td>
-                <td>  {cliente.cpfcnpj}</td>
-                <td> <Link href={`/visualizarCliente/${cliente.id}`}><button type='button'>Visualizar</button></Link>{" "}</td>
-                <td>  <Link href={`/editarCliente/${cliente.id}`}><button type='button'>Editar</button></Link>{" "}</td>
-                <td> <button type='button' onClick={() => deleteCliente(cliente.id)}>Apagar</button>{" "}</td>
+            {data.map(Livro => (
+              <tr key={Livro.id}>
+                <td>{Livro.id} </td>
+                <td> {Livro.titulo}</td>
+                <td>  {Livro.autor}</td>
+                <td>  {Livro.editora}</td>
+                <td> <Link href={`/visualizarLivro/${Livro.id}`}><button type='button'>Visualizar</button></Link>{" "}</td>
+                <td>  <Link href={`/editarLivro/${Livro.id}`}><button type='button'>Editar</button></Link>{" "}</td>
+                <td> <button type='button' onClick={() => deleteLivro(Livro.id)}>Apagar</button>{" "}</td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        {pagina !== 1 ? <button type='button' onClick={() => getClientes(1)}>Primeira</button> : <button type='button' disabled>Primeira</button>}{" "}
+        {pagina !== 1 ? <button type='button' onClick={() => getLivros(1)}>Primeira</button> : <button type='button' disabled>Primeira</button>}{" "}
 
-        {pagina !== 1 ? <button type='button' onClick={() => getClientes(pagina - 1)}>{pagina - 1}</button> : ""}{" "}
+        {pagina !== 1 ? <button type='button' onClick={() => getLivros(pagina - 1)}>{pagina - 1}</button> : ""}{" "}
         <button type='button' disabled>{pagina}</button>{" "}
-        {pagina + 1 <= ultimaPagina ? <button type='button' onClick={() => getClientes(pagina + 1)}>{pagina + 1}</button> : ""}{" "}
-        {pagina !== ultimaPagina ? <button type='button' onClick={() => getClientes(ultimaPagina)}>Última</button> : <button type='button' disabled>Última</button>}{" "}
+        {pagina + 1 <= ultimaPagina ? <button type='button' onClick={() => getLivros(pagina + 1)}>{pagina + 1}</button> : ""}{" "}
+        {pagina !== ultimaPagina ? <button type='button' onClick={() => getLivros(ultimaPagina)}>Última</button> : <button type='button' disabled>Última</button>}{" "}
         <br /><br />
 
 

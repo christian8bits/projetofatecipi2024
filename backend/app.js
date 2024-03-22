@@ -1,7 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-//const db = require('./db/models')
-const app = express()
 const porta = 8080
 
 //criar middleware que recebe dados da requisicao 
@@ -16,11 +14,11 @@ app.use((requisicao, resposta, next) => {
 })
 
 const clientes = require('./controllers/clientes')
-app.use('/', clientes)
 const logins = require('./controllers/logins')
+const livros = require('./controllers/livros')
 app.use('/', clientes)
 app.use('/', logins)
-
+app.use('/', livros)
 
 // inicia o servidor na porta
 app.listen(porta, () => {
