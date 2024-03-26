@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const porta = 8080
-
+const app = express();
 //criar middleware que recebe dados da requisicao 
 app.use(express.json()) // indica formato dos dados em json
 
