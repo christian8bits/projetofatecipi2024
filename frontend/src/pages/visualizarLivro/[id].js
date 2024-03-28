@@ -44,10 +44,20 @@ export default function Visualizar() {
                 <Link href={'/listarLivros'}><button type='button'>Listar</button></Link>{' '}             
                 <Link href={`/editarLivro/${data.id}`}><button type='button'>Editar</button></Link>{' '}
                 <h3>Detalhes do Livro {data.id}</h3>
+                <span><strong>ISBN:</strong> {data.isbn}</span><br />
                 <span><strong>Titulo:</strong> {data.titulo}</span><br />
                 <span><strong>Autor:</strong> {data.autor}</span><br />
                 <span><strong>Editora:</strong> {data.editora}</span><br />
-    
+                <span><strong>Tipo Livro:</strong> {data.tipolivro}</span><br />
+                <span><strong>Idioma:</strong> {data.idioma}</span><br />
+                <span><strong>Estante:</strong> {data.estante}</span><br />
+                <span><strong>Ano:</strong> {data.ano}</span><br />
+                <span><strong>Preço:</strong> {data.preco}</span><br />
+                <span><strong>Edição:</strong> {data.edicao}</span><br />
+                <span><strong>Peso:</strong> {data.peso}</span><br />
+                <span><strong>Descrição:</strong> {data.descricao}</span><br />
+                <span><strong>Categoria:</strong> {data.categoria}</span><br />
+                <span><strong>Localização:</strong> {data.localizacao}</span><br />
             </main>
         </>
     )
