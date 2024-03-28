@@ -30,7 +30,7 @@ export default function Home() {
           senha: ''
         })
         console.log('BORA LOGAR')
-        router.push('/listarClientes')
+        router.push('/principal')
 
       }).catch((err) => {
         if (err.response) {

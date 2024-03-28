@@ -5,9 +5,9 @@ import Link from 'next/link'
 
 export default function Livro() {
   const [data, setData] = useState({
-    usuario: '',
-    email: '',
-    senha: ''
+    titulo: '',
+    autor: '',
+    editora: ''
   })
 
 
@@ -22,7 +22,7 @@ export default function Livro() {
         'Content-Type': 'application/json'
       }
     }
-    await axios.post('http://localhost:8080/cadastrarLivro', data, headers)
+    await axios.post('http://localhost:8080/livros', data, headers)
       .then((response) => {
         setMessage(response.data.mensagem)
         setData({

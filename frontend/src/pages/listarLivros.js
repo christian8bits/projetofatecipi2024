@@ -15,15 +15,17 @@ export default function Home() {
 
 
   const getLivros = async (pagina) => {
+    console.log('get livros')
+    console.log(pagina)
     if (pagina === undefined) {
       pagina = 1
     }
     setPage(pagina)
     console.log(pagina)
-    await axios.get("http://localhost:8080/Livros?pagina=" + pagina)
+    await axios.get("http://localhost:8080/livros?pagina=" + pagina)
       .then((response) => {
-        console.log(response.data.Livros)
-        setData(response.data.Livros)
+        console.log(response.data.livros)
+        setData(response.data.livros)
         setLastPage(response.data.paginacao.ultimaPagina)
       }).catch((err) => {
         if (err.response) {
@@ -41,12 +43,14 @@ export default function Home() {
   // chama funcao excluir Livro 
   const deleteLivro = async (idLivro) => {
     if (window.confirm('Tem certeza que deseja apagar?')) {
-      const response = await servDelete('http://localhost:8080/Livros/' + idLivro)
+      const response = await servDelete('http://localhost:8080/livros/' + idLivro)
       setMessage(response)
       getLivros(pagina)
     }
   }
   console.log(pesquisa)
+
+  console.log(data)
   return (
     <>
       <Head>
@@ -78,15 +82,17 @@ export default function Home() {
               <th>Autor</th>
               <th>Editora</th>
             </tr>
-            {data.map(Livro => (
-              <tr key={Livro.id}>
-                <td>{Livro.id} </td>
-                <td> {Livro.titulo}</td>
-                <td>  {Livro.autor}</td>
-                <td>  {Livro.editora}</td>
-                <td> <Link href={`/visualizarLivro/${Livro.id}`}><button type='button'>Visualizar</button></Link>{" "}</td>
-                <td>  <Link href={`/editarLivro/${Livro.id}`}><button type='button'>Editar</button></Link>{" "}</td>
-                <td> <button type='button' onClick={() => deleteLivro(Livro.id)}>Apagar</button>{" "}</td>
+       
+
+            {data?.map(l => (
+              <tr key={l.id}>
+                <td>{l.id} </td>
+                <td> {l.titulo}</td>
+                <td>  {l.autor}</td>
+                <td>  {l.editora}</td>
+                <td> <Link href={`/visualizarLivro/${l.id}`}><button type='button'>Visualizar</button></Link>{" "}</td>
+                <td>  <Link href={`/editarLivro/${l.id}`}><button type='button'>Editar</button></Link>{" "}</td>
+                <td> <button type='button' onClick={() => deleteLivro(l.id)}>Apagar</button>{" "}</td>
               </tr>
             ))}
           </tbody>
