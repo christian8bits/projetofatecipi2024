@@ -11,6 +11,7 @@ export default function Home() {
   const [ultimaPagina, setLastPage] = useState('')
   const [message, setMessage] = useState('')
   const [pesquisa, setPesquisa] = useState('')
+  const xlsx = require('xlsx')
 
 
 
@@ -51,6 +52,49 @@ export default function Home() {
   console.log(pesquisa)
 
   console.log(data)
+
+  const selecionaDados = async (e) => {
+    const reader = new FileReader()
+    reader.readAsBinaryString(e.target.files[0])
+    reader.onload = (e) => {
+      const data = e.target.result
+      const workbook = xlsx.read(data, { type: "binary" })
+      const sheetName = workbook.SheetNames[0]
+      const sheet = workbook.Sheets[sheetName]
+      const parsedData = xlsx.utils.sheet_to_json(sheet)
+      //setData(parsedData)
+      console.log(parsedData)
+      importarDados(parsedData)
+    }
+}
+
+const importarDados = async (jsonPlanilha) => {
+
+    const headers = {
+      'headers': {
+        'Content-Type': 'application/json'
+      }
+    }
+  console.log(jsonPlanilha)
+  console.log(jsonPlanilha.autor)
+  await axios.post('http://localhost:8080/livros', jsonPlanilha, headers)
+  .then((response) => { 
+      console.log(jsonPlanilha)
+      setMessage(response.data.mensagem)
+      //VERIFICAR
+      getLivros(pagina)
+
+
+  }).catch((err) => {
+      if (err.response) {
+          setMessage(err.response.data)
+      } else {
+          setMessage('Erro: Tente novamente mais tarde!')
+      }
+  })
+}
+
+
   return (
     <>
       <Head>
@@ -63,7 +107,9 @@ export default function Home() {
         <Link href={"/cadastrarLivro"}><button type='button'>Cadastrar</button></Link>
         <h2>Listar Livros</h2>
 
-        {message ? <p>{message}</p> : ""}
+        <input type='file' accept='.xlsx' onChange={selecionaDados} /><br /><br/>
+
+
         <label>Pesquisa:  </label>
         <input
           name='pesquisa' 
@@ -83,9 +129,10 @@ export default function Home() {
               <th>Editora</th>
             </tr>
        
-
-            {data?.map(l => (
-              <tr key={l.id}>
+       
+  
+            {data?.map((l, index)=> (
+              <tr key={index}>
                 <td>{l.id} </td>
                 <td> {l.titulo}</td>
                 <td>  {l.autor}</td>

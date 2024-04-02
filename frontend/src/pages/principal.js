@@ -1,15 +1,19 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
-import axios from 'axios'
 import { useRouter } from 'next/router'
+
 
 export default function Principal() {
 
   const router = useRouter()
 
   const [mensagem, setMessage] = useState('')
-  const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value });
+  const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value })
+
+
+ 
+
 
 
   return (
@@ -23,11 +27,15 @@ export default function Principal() {
       <main>
         <h2>Monitoramento de Envios</h2>
         {mensagem ? <p>{mensagem}</p> : ''}
-       
-          <Link href={'/listarClientes'}> <button type='button'>Clientes</button></Link>{' '}
-          <Link href={'/listarLivros'}> <button type='button'>Livros</button></Link>{' '}
-     
+
+        <Link href={'/listarClientes'}> <button type='button'>Clientes</button></Link>{' '}
+        <Link href={'/listarLivros'}> <button type='button'>Livros</button></Link>{' '}
+
         <p>Sistema para acompanhar envios de livros</p>
+
+        
+
+
 
       </main>
     </>

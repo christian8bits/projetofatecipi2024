@@ -6,6 +6,7 @@ const db = require('./../db/models')
 app.post('/clientes', async (requisicao, resposta) => {
     var dados = requisicao.body
     console.log(dados)
+
     await db.Clientes.create(dados).then((dadosCliente) => {
         return resposta.json({
             mensagem: 'Cliente Cadastrado!', dadosCliente

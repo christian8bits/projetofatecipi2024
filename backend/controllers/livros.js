@@ -2,6 +2,7 @@ const express = require('express')
 const app = express.Router()
 const db = require('./../db/models')
 
+
 // rota cadastrar livro em http://localhost:8080/livros
 app.post('/livros', async (requisicao, resposta) => {
     var dados = requisicao.body
