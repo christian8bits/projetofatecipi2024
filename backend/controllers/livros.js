@@ -18,6 +18,29 @@ app.post('/livros', async (requisicao, resposta) => {
     })
 })
 
+
+
+// rota cadastrar planilha em http://localhost:8080/livros
+app.post('/livrosplanilha', async (requisicao, resposta) => {
+    var dados = requisicao.body
+    console.log(dados)
+     console.log("Livro testado")
+     var arrayJson = JSON.parse(dados);
+	arrayJson.forEach(function(pessoa){
+  	var acesso = pessoa.acesso;
+  	acesso.forEach(function(acesso)){
+    if (acesso != null)
+      console.log(acesso.isbn)
+  }
+})
+
+})
+
+
+
+
+
+
 // rota listar livros http://localhost:8080/livros
 app.get('/livros', async (requisicao, resposta) => {
     const { pagina = 1 } = requisicao.query

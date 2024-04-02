@@ -65,34 +65,26 @@ export default function Home() {
       //setData(parsedData)
       console.log(parsedData)
       importarDados(parsedData)
+      
+      
+      
     }
 }
 
 const importarDados = async (jsonPlanilha) => {
-
-    const headers = {
-      'headers': {
-        'Content-Type': 'application/json'
-      }
-    }
-  console.log(jsonPlanilha)
-  console.log(jsonPlanilha.autor)
-  await axios.post('http://localhost:8080/livros', jsonPlanilha, headers)
-  .then((response) => { 
-      console.log(jsonPlanilha)
-      setMessage(response.data.mensagem)
-      //VERIFICAR
-      getLivros(pagina)
-
-
-  }).catch((err) => {
-      if (err.response) {
-          setMessage(err.response.data)
-      } else {
-          setMessage('Erro: Tente novamente mais tarde!')
-      }
-  })
+ const headers = {
+            'headers': {
+                'Content-Type': 'application/json'
+            }
+        }
+            await axios.post('http://localhost:8080/livrosplanilha', jsonPlanilha, headers)
+            
+              console.log("Testado")
 }
+          
+  
+
+
 
 
   return (
