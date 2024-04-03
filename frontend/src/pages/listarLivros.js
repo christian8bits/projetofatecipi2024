@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import { servDelete } from '@/services/servDelete'
+const XLSX = require('xlsx')
 
 
 export default function Home() {
@@ -49,42 +50,57 @@ export default function Home() {
       getLivros(pagina)
     }
   }
-  console.log(pesquisa)
+  //console.log(pesquisa)
 
-  console.log(data)
+  //console.log(data)
 
   const selecionaDados = async (e) => {
-    const reader = new FileReader()
-    reader.readAsBinaryString(e.target.files[0])
-    reader.onload = (e) => {
-      const data = e.target.result
-      const workbook = xlsx.read(data, { type: "binary" })
-      const sheetName = workbook.SheetNames[0]
-      const sheet = workbook.Sheets[sheetName]
-      const parsedData = xlsx.utils.sheet_to_json(sheet)
-      //setData(parsedData)
-      console.log(parsedData)
-      importarDados(parsedData)
-      
-      
-      
+    if (window.confirm('Tem certeza que deseja carregar o arquivo?')) {
+      const reader = new FileReader()
+      reader.readAsBinaryString(e.target.files[0])
+      reader.onload = (e) => {
+        const data = e.target.result
+        const workbook = xlsx.read(data, { type: "binary" })
+        const sheetName = workbook.SheetNames[0]
+        const sheet = workbook.Sheets[sheetName]
+        const parsedData = xlsx.utils.sheet_to_json(sheet)
+        //setData(parsedData)
+        //console.log(parsedData)
+        importarDados(parsedData)
+
+      }
+
     }
-}
+  }
 
-const importarDados = async (jsonPlanilha) => {
- const headers = {
-            'headers': {
-                'Content-Type': 'application/json'
-            }
-        }
-            await axios.post('http://localhost:8080/livrosplanilha', jsonPlanilha, headers)
-            
-              console.log("Testado")
-}
-          
-  
+  const importarDados = async (jsonPlanilha) => {
+    const headers = {
+      'headers': {
+        'Content-Type': 'application/json'
+      }
+    }
+    await axios.post('http://localhost:8080/livrosplanilha', jsonPlanilha, headers)
+    console.log("Testado")
+    console.log(data.livros)
+    getLivros(pagina)
+  }
 
 
+
+
+  const exportarDados = async () => {
+    const response = await axios.get("http://localhost:8080/livrosTodos")
+    console.log(response.data.livros)
+    console.log('Exportação testada')
+    const livroscompleto = response.data.livros
+    const workSheet = xlsx.utils.json_to_sheet(livroscompleto)
+    const workBook = xlsx.utils.book_new()
+    xlsx.utils.book_append_sheet(workBook, workSheet, "livros")
+    xlsx.write(workBook, { bookType: 'xlsx', type: "buffer" })
+    xlsx.write(workBook, { bookType: "xlsx", type: "binary" })
+    xlsx.writeFile(workBook, "livrosExportados.xlsx")
+
+  }
 
 
   return (
@@ -98,19 +114,21 @@ const importarDados = async (jsonPlanilha) => {
       <main>
         <Link href={"/cadastrarLivro"}><button type='button'>Cadastrar</button></Link>
         <h2>Listar Livros</h2>
-
-        <input type='file' accept='.xlsx' onChange={selecionaDados} /><br /><br/>
+        <label><strong>Importar:  </strong></label>
+        <input type='file' accept='.xlsx' onChange={selecionaDados} />{"  "}{"  "}
+        <label><strong>Exportar:  </strong></label>
+        <button type='button' onClick={() => exportarDados()}>Salvar</button><br /><br />
 
 
         <label>Pesquisa:  </label>
         <input
-          name='pesquisa' 
+          name='pesquisa'
           type='text'
           value={pesquisa}
           onChange={(ev) => setPesquisa(ev.target.value)}
-        /> <br /><br />
-        
-       
+        /> <br />
+
+
 
         <table border="1">
           <tbody>
@@ -120,10 +138,10 @@ const importarDados = async (jsonPlanilha) => {
               <th>Autor</th>
               <th>Editora</th>
             </tr>
-       
-       
-  
-            {data?.map((l, index)=> (
+
+
+
+            {data?.map((l, index) => (
               <tr key={index}>
                 <td>{l.id} </td>
                 <td> {l.titulo}</td>

@@ -32,5 +32,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Livros',
   });
-  return Livros;
-};
+  return Livros
+}
