@@ -16,9 +16,11 @@ app.use((requisicao, resposta, next) => {
 const clientes = require('./controllers/clientes')
 const logins = require('./controllers/logins')
 const livros = require('./controllers/livros')
+const pedidos = require('./controllers/pedidos')
 app.use('/', clientes)
 app.use('/', logins)
 app.use('/', livros)
+app.use('/', pedidos)
 
 // inicia o servidor na porta
 app.listen(porta, () => {
