@@ -133,6 +133,16 @@ app.get('/livros', async (requisicao, resposta) => {
 app.get('/livro/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     console.log(id)
+
+    const project = await db.Livros.findOne({ where: { codigoev: 'ev2716664786-0' } });
+    if (project === null) {
+      console.log('Not found!');
+    } else {
+      console.log(project); // true
+      console.log(project.dataValues); // 'My Title'
+    }
+
+
     const livro = await db.Livros.findOne({
         attributes: ['id', 'isbn', 'codigoev', 'autor', 'titulo', 'tipolivro', 'idioma', 'estante', 'editora', 'ano', 'preco', 'edicao', 'peso', 'descricao', 'categoria', 'localizacao'],
         where: { id },
@@ -148,6 +158,27 @@ app.get('/livro/:id', async (requisicao, resposta) => {
         })
     }
 })
+
+
+app.get('/livropedido/:codigoev', async (requisicao, resposta) => {
+    const { codigoev } = requisicao.params
+
+
+    console.log(codigoev)
+    const livro = await db.Livros.findOne({ where: { codigoev: 'ev2716664786-0' } });
+    console.log(livro)
+    if (livro) {
+        return resposta.json({
+            livro: livro.dataValues
+        })
+    } else {
+        return resposta.status(400).json({
+            mensagem: 'Erro: Livro NÃO encontrado!'
+        })
+    }
+})
+
+
 // rota editar 
 app.put('/livros', async (requisicao, resposta) => {
     var dados = requisicao.body

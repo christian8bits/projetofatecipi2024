@@ -118,7 +118,7 @@ export default function Home() {
         <label><strong>Importar:  </strong></label>
         <input type='file' accept='.xlsx' onChange={selecionaDados} />{"  "}{"  "}
         <label><strong>Exportar:  </strong></label>
-        <button type='button'  class="button2" onClick={() => exportarDados()}>Salvar</button><br /><br />
+        <button type='button'  className="button2" onClick={() => exportarDados()}>Salvar</button><br /><br />
 
 
         <label>Pesquisa:  </label>

@@ -5,11 +5,12 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 export default function Visualizar() {
-    const [dataPedido, setData] = useState([])
-
+    const [data, setData] = useState([])
     const [message, setMessage] = useState('')
     const router = useRouter()
     const [id] = useState(router.query.id)
+    const [codigoev] = useState(router.query.codigoev)
+
     const getPedido = async () => {
         if (id === undefined) {
             setMessage('Erro: pedido não encontrado!')
@@ -33,6 +34,32 @@ export default function Visualizar() {
         getPedido()
     }, [id])
 
+
+    const getLivro = async () => {
+        if (codigoev === undefined) {
+            setMessage('Erro: pedido não encontrado!')
+            return
+        }
+    
+        await axios.get('http://localhost:8080/livropedido/' + codigoev)
+            .then((response) => { // Acessa o then quando a API retornar status 200
+                console.log(response.data.livro)
+                return response.data.livro
+            }).catch((err) => {
+                if (err.response) {
+                    console.log('Erro: Tente novamente mais tarde!')
+                } else {
+                   console.log('Erro: Tente novamente mais tarde!')
+                }
+            })
+    }
+    
+
+
+useEffect(() => {
+    console.log(getLivro())
+}, [codigoev])
+
     return (
         <>
             <Head>
@@ -44,39 +71,44 @@ export default function Visualizar() {
             <main>
                 <Link href={"/principal"}><button type='button'>Home</button></Link>{' '}
                 <Link href={'/listarPedidos'}><button type='button'>Listar</button></Link>{' '}
-                <Link href={`/editarPedido/${dataPedido.id}`}><button type='button'>Editar</button></Link>{' '}
+                <Link href={`/editarPedido/${data.id}`}><button type='button'>Editar</button></Link>{' '}
                 <br></br>  <br></br>
 
 
-                <h3>Pedido Nº: {dataPedido.id}</h3>
+                <h3>Pedido Nº: {data.id}</h3>
                 <form>
-                    <span><strong>Comprador:</strong> {dataPedido.comprador}</span>
-                    <span><strong>CPF/CNPJ:</strong> {dataPedido.cpfcnpj}</span>
+                    <span><strong>Comprador:</strong> {data.comprador}</span>
+                    <span><strong>CPF/CNPJ:</strong> {data.cpfcnpj}</span>
                 </form>
                 <h4>Endereço de Entrega: </h4>
-                <form>
-                    <span><strong>Destinário:</strong> {dataPedido.destinario}</span>
-                    <span><strong>Logradouro:</strong> {dataPedido.logradouro}</span>
-                    <span><strong>Numero:</strong> {dataPedido.numero}</span>
-                    <span><strong>Bairro:</strong> {dataPedido.bairro}</span>
-                    <span><strong>Complemento:</strong> {dataPedido.complemento}</span>
-                    <span><strong>Cidade:</strong> {dataPedido.cidade}</span>
-                    <span><strong>UF:</strong> {dataPedido.uf}</span>
-                    <span><strong>CEP:</strong> {dataPedido.cep}</span>
+                <form className="form3">
+                    <span><strong>Destinário:</strong> {data.destinario}</span>
+                    <span><strong>Logradouro:</strong> {data.logradouro}</span>
+                    <span><strong>Numero:</strong> {data.numero}</span>
+                    <span><strong>Bairro:</strong> {data.bairro}</span>
+                    <span><strong>Complemento:</strong> {data.complemento}</span>
+                    <span><strong>Cidade:</strong> {data.cidade}</span>
+                    <span><strong>UF:</strong> {data.uf}</span>
+                    <span><strong>CEP:</strong> {data.cep}</span>
                 </form>
 
 
                 <h4>Detalhes Pedido: </h4>
-                <form>
-                    <span><strong>Data Pagamento:</strong> {dataPedido.dataPagamento}</span>
-                    <span><strong>Forma de Envio:</strong> {dataPedido.formaenvio}</span>
-                    <span><strong>Frete:</strong> {dataPedido.frete}</span>
+                <form className="form3">
+                    <span><strong>Data Pagamento:</strong> {data.dataPagamento}</span>
+                    <span><strong>Forma de Envio:</strong> {data.formaenvio}</span>
+                    <span><strong>Frete:</strong> {data.frete}</span>
                     <span><strong>Preço:</strong>{'0'} </span>
-                    <span><strong>Valor:</strong> {dataPedido.valortotal}</span>
+                    <span><strong>Valor:</strong> {data.valortotal}</span>
                     <label>{''}</label>
-                    <span><strong>Rastreamento:</strong> {dataPedido.codigorastreio}</span>
-                    <Link href={"/principal"}><button type='button'>Rastreamento</button></Link>{' '}
-                </form>
+                    </form>
+                    <form>
+                    <span><strong>Código de Rastreamento:</strong> {data.codigorastreio}</span>
+                    <span><strong>Código EV:</strong> {data.codigoev}</span>
+                 
+
+                    </form>
+
             </main>
         </>
     )

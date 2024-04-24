@@ -127,7 +127,7 @@ export default function Editar() {
                     <label>CEP:  </label>
                     <IMaskInput mask={maskcep} name='cep' placeholder='00000-000 ' onChange={valueInput} value={data.cep} />  
                     <label> {' '}  </label>
-                    <button type='button'  class="button2" onClick={() => buscaCEP(data.cep)}>Buscar Cep</button>     <label>Logradouro:  </label>
+                    <button type='button'  className="button2" onClick={() => buscaCEP(data.cep)}>Buscar Cep</button>     <label>Logradouro:  </label>
                     <input type='text' name='logradouro' placeholder=' ' onChange={valueInput} value={data.logradouro} /> 
                     <label>Numero:  </label>
                     <input type='number' name='numero' placeholder=' ' onChange={valueInput} value={data.numero} /> 
