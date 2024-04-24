@@ -19,7 +19,7 @@ export default function Visualizar() {
             .then((response) => { // Acessa o then quando a API retornar status 200
                 console.log(response.data.cliente)
                 setData(response.data.cliente)
-            }).catch((err) => { 
+            }).catch((err) => {
                 if (err.response) {
                     setMessage(err.response.data.mensagem)
                 } else {
@@ -41,21 +41,28 @@ export default function Visualizar() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <Link href={'/listarClientes'}><button type='button'>Listar</button></Link>{' '}             
+                <Link href={"/principal"}><button type='button'>Home</button></Link>{' '}
+                <Link href={'/listarClientes'}><button type='button'>Listar</button></Link>{' '}
                 <Link href={`/editarCliente/${data.id}`}><button type='button'>Editar</button></Link>{' '}
-                <h3>Detalhes do Cliente {data.id}</h3>
-                <span><strong>Nome:</strong> {data.nome}</span><br />
-                <span><strong>E-mail:</strong> {data.email}</span><br />
-                <span><strong>CPF/CNPJ:</strong> {data.cpfcnpj}</span><br />
+                <br/> <br/>
+                <h3>Detalhes do Cliente {data.id}:</h3>
+                <form class="form2">
+                <span><strong>Nome:</strong> {data.comprador}</span>
+                <span><strong>E-mail:</strong> {data.email}</span>
+                <span><strong>CPF/CNPJ:</strong> {data.cpfcnpj}</span>
                 <span><strong>Telefone:</strong> {data.telefone}</span>
-                <h3>Endereço</h3>
-                <span><strong>Logradouro:</strong> {data.logradouro}</span><br />
-                <span><strong>Numero:</strong> {data.numero}</span><br />
-                <span><strong>Bairro:</strong> {data.bairro}</span><br />
-                <span><strong>Complemento:</strong> {data.complemento}</span><br />
-                <span><strong>Cidade:</strong> {data.cidade}</span><br />
-                <span><strong>UF:</strong> {data.uf}</span><br />
-                <span><strong>CEP:</strong> {data.cep}</span><br />
+                </form>
+                <br/> 
+                <h4>Endereço:</h4>
+                <form>
+                <span><strong>Logradouro:</strong> {data.logradouro}</span>
+                <span><strong>Numero:</strong> {data.numero}</span>
+                <span><strong>Bairro:</strong> {data.bairro}</span>
+                <span><strong>Complemento:</strong> {data.complemento}</span>
+                <span><strong>Cidade:</strong> {data.cidade}</span>
+                <span><strong>UF:</strong> {data.uf}</span>
+                <span><strong>CEP:</strong> {data.cep}</span>
+                </form>
             </main>
         </>
     )

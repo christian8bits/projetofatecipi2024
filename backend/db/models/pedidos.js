@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Pedidos.init({
-    data: DataTypes.STRING,
+    dataPagamento: DataTypes.STRING,
     pedido: DataTypes.STRING,
     codigoev: DataTypes.STRING,
     comprador: DataTypes.STRING,
@@ -24,11 +24,13 @@ module.exports = (sequelize, DataTypes) => {
     numero: DataTypes.STRING,
     complemento: DataTypes.STRING,
     bairro: DataTypes.STRING,
-    estado: DataTypes.STRING,
+    uf: DataTypes.STRING,
     cidade: DataTypes.STRING,
     cep: DataTypes.STRING,
     formaenvio: DataTypes.STRING,
-    codigorastreio: DataTypes.STRING
+    codigorastreio: DataTypes.STRING,
+    frete: DataTypes.STRING,
+    valortotal: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Pedidos',

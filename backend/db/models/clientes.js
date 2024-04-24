@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Clientes.init({
-    nome: DataTypes.STRING,
+    comprador: DataTypes.STRING,
     cpfcnpj: DataTypes.STRING,
     email: DataTypes.STRING,
     telefone: DataTypes.STRING,

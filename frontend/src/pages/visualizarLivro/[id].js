@@ -19,7 +19,7 @@ export default function Visualizar() {
             .then((response) => { // Acessa o then quando a API retornar status 200
                 console.log(response.data.livro)
                 setData(response.data.livro)
-            }).catch((err) => { 
+            }).catch((err) => {
                 if (err.response) {
                     setMessage(err.response.data.mensagem)
                 } else {
@@ -41,9 +41,13 @@ export default function Visualizar() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <Link href={'/listarLivros'}><button type='button'>Listar</button></Link>{' '}             
+                <Link href={"/principal"}><button type='button'>Home</button></Link>{' '}
+                <Link href={'/listarLivros'}><button type='button'>Listar</button></Link>{' '}
                 <Link href={`/editarLivro/${data.id}`}><button type='button'>Editar</button></Link>{' '}
+                <br/> 
+                <br/> 
                 <h3>Detalhes do Livro {data.id}</h3>
+                <form class="form2">
                 <span><strong>ISBN:</strong> {data.isbn}</span><br />
                 <span><strong>Titulo:</strong> {data.titulo}</span><br />
                 <span><strong>Autor:</strong> {data.autor}</span><br />
@@ -58,6 +62,7 @@ export default function Visualizar() {
                 <span><strong>Descrição:</strong> {data.descricao}</span><br />
                 <span><strong>Categoria:</strong> {data.categoria}</span><br />
                 <span><strong>Localização:</strong> {data.localizacao}</span><br />
+                </form>
             </main>
         </>
     )

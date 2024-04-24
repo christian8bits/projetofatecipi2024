@@ -112,12 +112,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <Link href={"/principal"}><button type='button'>Home</button></Link>{' '}
         <Link href={"/cadastrarLivro"}><button type='button'>Cadastrar</button></Link>
         <h2>Listar Livros</h2>
         <label><strong>Importar:  </strong></label>
         <input type='file' accept='.xlsx' onChange={selecionaDados} />{"  "}{"  "}
         <label><strong>Exportar:  </strong></label>
-        <button type='button' onClick={() => exportarDados()}>Salvar</button><br /><br />
+        <button type='button'  class="button2" onClick={() => exportarDados()}>Salvar</button><br /><br />
 
 
         <label>Pesquisa:  </label>
@@ -130,7 +131,7 @@ export default function Home() {
 
 
 
-        <table border="1">
+        <table border="1" cellspacing="3" cellpadding="3">
           <tbody>
             <tr>
               <th>Nº</th>

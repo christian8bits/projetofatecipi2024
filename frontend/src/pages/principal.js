@@ -30,6 +30,7 @@ export default function Principal() {
 
         <Link href={'/listarClientes'}> <button type='button'>Clientes</button></Link>{' '}
         <Link href={'/listarLivros'}> <button type='button'>Livros</button></Link>{' '}
+        <Link href={'/listarPedidos'}> <button type='button'>Pedidos</button></Link>{' '}
 
         <p>Sistema para acompanhar envios de livros</p>
 

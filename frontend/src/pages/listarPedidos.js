@@ -4,7 +4,7 @@ import axios from 'axios'
 import Link from 'next/link'
 import { servDelete } from '@/services/servDelete'
 const XLSX = require('xlsx')
-
+//import '@bcredi/global-css';
 
 export default function Home() {
   const [data, setData] = useState([])
@@ -80,6 +80,9 @@ export default function Home() {
       }
     }
     await axios.post('http://localhost:8080/pedidosplanilha', jsonPlanilha, headers)
+    await axios.post('http://localhost:8080/livrosplanilha', jsonPlanilha, headers)
+    await axios.post('http://localhost:8080/clientesplanilha', jsonPlanilha, headers)
+
     console.log("Testado")
     console.log(data.pedidos)
     getPedidos(pagina)
@@ -112,12 +115,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Link href={"/cadastrarPedido"}><button type='button'>Cadastrar</button></Link>
+        <Link href={"/principal"}><button type='button'>Home</button></Link>{' '}{' '}
+        <Link href={"/cadastrarPedido"}><button type='button'>Cadastrar</button></Link>{' '}{' '}
+
         <h2>Listar Pedidos</h2>
         <label><strong>Importar:  </strong></label>
         <input type='file' accept='.xlsx' onChange={selecionaDados} />{"  "}{"  "}
         <label><strong>Exportar:  </strong></label>
-        <button type='button' onClick={() => exportarDados()}>Salvar</button><br /><br />
+        <button type='button' class="button2" onClick={() => exportarDados()}>Exportar</button><br /><br />
 
 
         <label>Pesquisa:  </label>
@@ -130,9 +135,40 @@ export default function Home() {
 
 
 
-       
+        <table border="1" cellSpacing="3" cellPadding="3">
+          <tbody>
+            <tr>
+              <th>Pedido</th>
+              <th>Comprador</th>
+              <th>Cep</th>
+              <th>Forma de Envio</th>
+              <th>Código de Rastreio</th>
+            </tr>
+  
 
 
+            {data?.map((l, index) => (
+              <tr key={index}>
+                <td>{l.pedido} </td>
+                <td> {l.comprador}</td>
+                <td>  {l.cep}</td>
+                <td>  {l.formaenvio}</td>
+                <td>  {l.codigorastreio}</td>
+                <td> <Link href={`/visualizarPedido/${l.id}`}><button type='button'>Visualizar</button></Link>{" "}</td>
+                <td>  <Link href={`/editarPedido/${l.id}`}><button type='button'>Editar</button></Link>{" "}</td>
+                <td> <button type='button' onClick={() => deletePedido(l.id)}>Apagar</button>{" "}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {pagina !== 1 ? <button type='button' onClick={() => getPedidos(1)}>Primeira</button> : <button type='button' disabled>Primeira</button>}{" "}
+
+        {pagina !== 1 ? <button type='button' onClick={() => getPedidos(pagina - 1)}>{pagina - 1}</button> : ""}{" "}
+        <button type='button' disabled>{pagina}</button>{" "}
+        {pagina + 1 <= ultimaPagina ? <button type='button' onClick={() => getPedidos(pagina + 1)}>{pagina + 1}</button> : ""}{" "}
+        {pagina !== ultimaPagina ? <button type='button' onClick={() => getPedidos(ultimaPagina)}>Última</button> : <button type='button' disabled>Última</button>}{" "}
+        <br /><br />
       </main>
     </>
   )

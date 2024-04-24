@@ -2,56 +2,56 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Pedidos', {
+    await queryInterface.createTable('Livros', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      data: {
-        type: Sequelize.STRING
-      },
-      pedido: {
+      isbn: {
         type: Sequelize.STRING
       },
       codigoev: {
         type: Sequelize.STRING
       },
-      comprador: {
+      autor: {
         type: Sequelize.STRING
       },
-      cpfcnpj: {
+      titulo: {
         type: Sequelize.STRING
       },
-      destinatario: {
+      tipolivro: {
         type: Sequelize.STRING
       },
-      logradouro: {
+      idioma: {
         type: Sequelize.STRING
       },
-      numero: {
+      estante: {
         type: Sequelize.STRING
       },
-      complemento: {
+      editora: {
         type: Sequelize.STRING
       },
-      bairro: {
+      ano: {
         type: Sequelize.STRING
       },
-      estado: {
+      preco: {
         type: Sequelize.STRING
       },
-      cidade: {
+      edicao: {
         type: Sequelize.STRING
       },
-      cep: {
+      peso: {
         type: Sequelize.STRING
       },
-      formaenvio: {
+      descricao: {
         type: Sequelize.STRING
       },
-      codigorastreio: {
+      categoria: {
+        type: Sequelize.STRING
+      },
+      localizacao: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -65,6 +65,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Pedidos');
+    await queryInterface.dropTable('Livros');
   }
 };

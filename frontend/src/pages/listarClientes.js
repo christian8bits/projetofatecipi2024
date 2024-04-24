@@ -56,6 +56,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+      <Link href={"/principal"}><button type='button'>Home</button></Link>{' '}
         <Link href={"/cadastrarCliente"}><button type='button'>Cadastrar</button></Link>
         <h2>Listar Clientes</h2>
 
@@ -70,19 +71,19 @@ export default function Home() {
         
        
 
-        <table border="1">
+        <table border="1" cellspacing="3" cellpadding="3">
           <tbody>
             <tr>
               <th>Nº</th>
               <th>Nome</th>
-              <th>E-mail</th>
+              <th>CEP</th>
               <th>CPF</th>
             </tr>
             {data.map(cliente => (
               <tr key={cliente.id}>
                 <td>{cliente.id} </td>
-                <td> {cliente.nome}</td>
-                <td>  {cliente.email}</td>
+                <td> {cliente.comprador}</td>
+                <td>  {cliente.cep}</td>
                 <td>  {cliente.cpfcnpj}</td>
                 <td> <Link href={`/visualizarCliente/${cliente.id}`}><button type='button'>Visualizar</button></Link>{" "}</td>
                 <td>  <Link href={`/editarCliente/${cliente.id}`}><button type='button'>Editar</button></Link>{" "}</td>

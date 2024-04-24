@@ -67,138 +67,139 @@ export default function Editar() {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <main>
+                <Link href={"/principal"}><button type='button'>Home</button></Link>{' '}
                 <Link href={'/listarLivros'}><button type='button'>Listar</button></Link>{' '}
                 <h2>Editar Livro {data.nome}</h2>
                 {mensagem ? <p>{mensagem}</p> : ''}
                 <form onSubmit={editarLivro}>
-                <label>ISBN: </label>
-          <input type='text' name='isbn' placeholder='' onChange={valueInput} value={data.isbn} /><br /><br />
-          <label>Titulo: </label>
-          <input type='text' name='titulo' placeholder='' onChange={valueInput} value={data.titulo} /><br /><br />
-          <label>Autor: </label>
-          <input type='text' name='autor' placeholder='' onChange={valueInput} value={data.autor} /><br /><br />
-          <label>Editora: </label>
-          <input type='text' name='editora' placeholder='' onChange={valueInput} value={data.editora} /><br /><br />
+                    <label>ISBN: </label>
+                    <input type='text' name='isbn' placeholder='' onChange={valueInput} value={data.isbn} />
+                    <label>Titulo: </label>
+                    <input type='text' name='titulo' placeholder='' onChange={valueInput} value={data.titulo} />
+                    <label>Autor: </label>
+                    <input type='text' name='autor' placeholder='' onChange={valueInput} value={data.autor} />
+                    <label>Editora: </label>
+                    <input type='text' name='editora' placeholder='' onChange={valueInput} value={data.editora} />
 
-          <label>Tipo: </label>
-          <select name="tipolivro" defaultValue={data.tipolivro} onChange={valueInput} value={data.tipolivro}>
-            <option selected value="Novo">Novo</option>
-            <option value="Usado">Usado</option>
-          </select>
+                    <label>Tipo: </label>
+                    <select name="tipolivro" defaultValue={data.tipolivro} onChange={valueInput} value={data.tipolivro}>
+                        <option selected value="Novo">Novo</option>
+                        <option value="Usado">Usado</option>
+                    </select>
 
-          {" "}<label>Idioma: </label>
-          <select name="idioma" defaultValue={data.idioma} onChange={valueInput} value={data.idioma}>
-          <option value="Português">Português</option>
-            <option value="Alemão">Alemão</option>
-            <option value="Chinês">	Chinês</option>
-            <option value="Coreano">Coreano</option>
-            <option value="Espanhol	">Espanhol</option>
-            <option value="Francês">	Francês	</option>
-            <option value="Russo">	Russo	</option>
-            <option value="Italiano">	Italiano	</option>
-            <option value="Japonês">	Japonês	</option>
-            <option value="Grego">	Grego	</option>
-            <option value="Hebraico	">	Hebraico	</option>
-            <option value="Latim">	Latim	</option>    
-            <option value="Inglês">Inglês</option>
-          </select>
+                    {" "}<label>Idioma: </label>
+                    <select name="idioma" defaultValue={data.idioma} onChange={valueInput} value={data.idioma}>
+                        <option value="Português">Português</option>
+                        <option value="Alemão">Alemão</option>
+                        <option value="Chinês">	Chinês</option>
+                        <option value="Coreano">Coreano</option>
+                        <option value="Espanhol	">Espanhol</option>
+                        <option value="Francês">	Francês	</option>
+                        <option value="Russo">	Russo	</option>
+                        <option value="Italiano">	Italiano	</option>
+                        <option value="Japonês">	Japonês	</option>
+                        <option value="Grego">	Grego	</option>
+                        <option value="Hebraico	">	Hebraico	</option>
+                        <option value="Latim">	Latim	</option>
+                        <option value="Inglês">Inglês</option>
+                    </select>
 
-          {"  "}<label>Estante: </label>
-          <select name="estante" defaultValue={data.estante} onChange={valueInput} value={data.estante}>
-            <option value="Administração">	Administração	</option>
-            <option value="Agricultura">	Agricultura	</option>
-            <option value="Antropologia">	Antropologia	</option>
-            <option value="Arqueologia">	Arqueologia	</option>
-            <option value="Arquitetura">	Arquitetura	</option>
-            <option value="Artes">	Artes	</option>
-            <option value="Artesanato">	Artesanato	</option>
-            <option value="Astronomia">	Astronomia	</option>
-            <option value="Auto ajuda">	Auto ajuda	</option>
-            <option value="Biografias">	Biografias	</option>
-            <option value="Biologia">	Biologia	</option>
-            <option value="Botânica">	Botânica	</option>
-            <option value="Brasil">	Brasil	</option>
-            <option value="Cinema">	Cinema	</option>
-            <option value="Ciência Política">	Ciência Política	</option>
-            <option value="Ciências Exatas">	Ciências Exatas	</option>
-            <option value="Coleções">	Coleções	</option>
-            <option value="Comportamento">	Comportamento	</option>
-            <option value="Comunicação">	Comunicação	</option>
-            <option value="Contabilidade">	Contabilidade	</option>
-            <option value="Contos">	Contos	</option>
-            <option value="Crítica Literária	">	Crítica Literária	</option>
-            <option value="Culinária">	Culinária	</option>
-            <option value="Decoração">	Decoração	</option>
-            <option value="Dicionários">	Dicionários	</option>
-            <option value="Didáticos">	Didáticos	</option>
-            <option value="Direito">	Direito	</option>
-            <option value="Documentos">	Documentos	</option>
-            <option value="Ecologia">	Ecologia	</option>
-            <option value="Economia">	Economia	</option>
-            <option value="Enciclopédias	">	Enciclopédias	</option>
-            <option value="Engenharia">	Engenharia	</option>
-            <option value="Ensino de Idiomas">	Ensino de Idiomas	</option>
-            <option value="Esoterismo">	Esoterismo	</option>
-            <option value="Esportes">	Esportes	</option>
-            <option value="Ficção Científica">	Ficção Científica	</option>
-            <option value="Filosofia">	Filosofia	</option>
-            <option value="Folclore">	Folclore	</option>
-            <option value="Fotografia">	Fotografia	</option>
-            <option value="Genealogia">	Genealogia	</option>
-            <option value="Geografia">	Geografia	</option>
-            <option value="Gibis">Gibis</option>
-            <option value="Guerra">	Guerra	</option>
-            <option value="História Geral">	História Geral	</option>
-            <option value="História do Brasil">	História do Brasil	</option>
-            <option value="Hobbies">	Hobbies	</option>
-            <option value="Humor">	Humor	</option>
-            <option value="Infanto juvenis">	Infanto juvenis	</option>
-            <option value="Informática">	Informática	</option>
-            <option value="Jogos">	Jogos	</option>
-            <option value="Jornais">	Jornais	</option>
-            <option value="Linguística">	Linguística	</option>
-            <option value="Literatura Brasileira">	Literatura Brasileira	</option>
-            <option value="Literatura Estrangeira">	Literatura Estrangeira	</option>
-            <option value="Livros Raros">	Livros Raros	</option>
-            <option value="Manuscritos">	Manuscritos	</option>
-            <option value="Medicina">	Medicina	</option>
-            <option value="Moda">	Moda	</option>
-            <option value="Música">	Música	</option>
-            <option value="Outros Assuntos">	Outros Assuntos	</option>
-            <option value="Pecuária">	Pecuária	</option>
-            <option value="Pedagogia">	Pedagogia	</option>
-            <option value="Pintura">	Pintura	</option>
-            <option value="Poesia">	Poesia	</option>
-            <option value="Psicologia">	Psicologia	</option>
-            <option value="Religião">	Religião	</option>
-            <option value="Revistas">	Revistas	</option>
-            <option value="Saúde">	Saúde	</option>
-            <option value="Sexualidade">	Sexualidade	</option>
-            <option value="Sociologia">	Sociologia	</option>
-            <option value="Teatro">	Teatro	</option>
-            <option value="Turismo">	Turismo	</option>
-          </select>
-          <br /><br />
-
-
-          <label>Ano: </label>
-          <input type='text' name='ano' placeholder='' onChange={valueInput} value={data.ano} /><br /><br />
-          <label>Preço: </label>
-          <input type='text' name='preco' placeholder='' onChange={valueInput} value={data.preco} /><br /><br />
-          <label>Edição: </label>
-          <input type='text' name='edicao' placeholder='' onChange={valueInput} value={data.edicao} /><br /><br />
-          <label>Peso: </label>
-          <input type='text' name='peso' placeholder='' onChange={valueInput} value={data.peso} /><br /><br />
-          <label>Descrição: </label><br />
-          <textarea name="descricao" rows={4} cols={40} onChange={valueInput} value={data.descricao} /><br /><br />
-          <label>Categoria: </label>
-          <input type='text' name='categoria' placeholder='' onChange={valueInput} value={data.categoria} /><br /><br />
-          <label>Localização: </label>
-          <input type='text' name='localizacao' placeholder='' onChange={valueInput} value={data.localizacao} /><br /><br />
+                    {"  "}<label>Estante: </label>
+                    <select name="estante" defaultValue={data.estante} onChange={valueInput} value={data.estante}>
+                        <option value="Administração">	Administração	</option>
+                        <option value="Agricultura">	Agricultura	</option>
+                        <option value="Antropologia">	Antropologia	</option>
+                        <option value="Arqueologia">	Arqueologia	</option>
+                        <option value="Arquitetura">	Arquitetura	</option>
+                        <option value="Artes">	Artes	</option>
+                        <option value="Artesanato">	Artesanato	</option>
+                        <option value="Astronomia">	Astronomia	</option>
+                        <option value="Auto ajuda">	Auto ajuda	</option>
+                        <option value="Biografias">	Biografias	</option>
+                        <option value="Biologia">	Biologia	</option>
+                        <option value="Botânica">	Botânica	</option>
+                        <option value="Brasil">	Brasil	</option>
+                        <option value="Cinema">	Cinema	</option>
+                        <option value="Ciência Política">	Ciência Política	</option>
+                        <option value="Ciências Exatas">	Ciências Exatas	</option>
+                        <option value="Coleções">	Coleções	</option>
+                        <option value="Comportamento">	Comportamento	</option>
+                        <option value="Comunicação">	Comunicação	</option>
+                        <option value="Contabilidade">	Contabilidade	</option>
+                        <option value="Contos">	Contos	</option>
+                        <option value="Crítica Literária	">	Crítica Literária	</option>
+                        <option value="Culinária">	Culinária	</option>
+                        <option value="Decoração">	Decoração	</option>
+                        <option value="Dicionários">	Dicionários	</option>
+                        <option value="Didáticos">	Didáticos	</option>
+                        <option value="Direito">	Direito	</option>
+                        <option value="Documentos">	Documentos	</option>
+                        <option value="Ecologia">	Ecologia	</option>
+                        <option value="Economia">	Economia	</option>
+                        <option value="Enciclopédias	">	Enciclopédias	</option>
+                        <option value="Engenharia">	Engenharia	</option>
+                        <option value="Ensino de Idiomas">	Ensino de Idiomas	</option>
+                        <option value="Esoterismo">	Esoterismo	</option>
+                        <option value="Esportes">	Esportes	</option>
+                        <option value="Ficção Científica">	Ficção Científica	</option>
+                        <option value="Filosofia">	Filosofia	</option>
+                        <option value="Folclore">	Folclore	</option>
+                        <option value="Fotografia">	Fotografia	</option>
+                        <option value="Genealogia">	Genealogia	</option>
+                        <option value="Geografia">	Geografia	</option>
+                        <option value="Gibis">Gibis</option>
+                        <option value="Guerra">	Guerra	</option>
+                        <option value="História Geral">	História Geral	</option>
+                        <option value="História do Brasil">	História do Brasil	</option>
+                        <option value="Hobbies">	Hobbies	</option>
+                        <option value="Humor">	Humor	</option>
+                        <option value="Infanto juvenis">	Infanto juvenis	</option>
+                        <option value="Informática">	Informática	</option>
+                        <option value="Jogos">	Jogos	</option>
+                        <option value="Jornais">	Jornais	</option>
+                        <option value="Linguística">	Linguística	</option>
+                        <option value="Literatura Brasileira">	Literatura Brasileira	</option>
+                        <option value="Literatura Estrangeira">	Literatura Estrangeira	</option>
+                        <option value="Livros Raros">	Livros Raros	</option>
+                        <option value="Manuscritos">	Manuscritos	</option>
+                        <option value="Medicina">	Medicina	</option>
+                        <option value="Moda">	Moda	</option>
+                        <option value="Música">	Música	</option>
+                        <option value="Outros Assuntos">	Outros Assuntos	</option>
+                        <option value="Pecuária">	Pecuária	</option>
+                        <option value="Pedagogia">	Pedagogia	</option>
+                        <option value="Pintura">	Pintura	</option>
+                        <option value="Poesia">	Poesia	</option>
+                        <option value="Psicologia">	Psicologia	</option>
+                        <option value="Religião">	Religião	</option>
+                        <option value="Revistas">	Revistas	</option>
+                        <option value="Saúde">	Saúde	</option>
+                        <option value="Sexualidade">	Sexualidade	</option>
+                        <option value="Sociologia">	Sociologia	</option>
+                        <option value="Teatro">	Teatro	</option>
+                        <option value="Turismo">	Turismo	</option>
+                    </select>
+      
 
 
+                    <label>Ano: </label>
+                    <input type='text' name='ano' placeholder='' onChange={valueInput} value={data.ano} />
+                    <label>Preço: </label>
+                    <input type='text' name='preco' placeholder='' onChange={valueInput} value={data.preco} />
+                    <label>Edição: </label>
+                    <input type='text' name='edicao' placeholder='' onChange={valueInput} value={data.edicao} />
+                    <label>Peso: </label>
+                    <input type='text' name='peso' placeholder='' onChange={valueInput} value={data.peso} />
+                    <label>Descrição: </label>
+                    <textarea name="descricao" rows={4} cols={30} onChange={valueInput} value={data.descricao} />
+                    <label>Categoria: </label>
+                    <input type='text' name='categoria' placeholder='' onChange={valueInput} value={data.categoria} />
+                    <label>Localização: </label>
+                    <input type='text' name='localizacao' placeholder='' onChange={valueInput} value={data.localizacao} />
 
-                    <button type='submit'>Salvar</button><br /><br />
+
+
+                    <button type='submit'>Salvar</button>
                 </form>
             </main>
         </>

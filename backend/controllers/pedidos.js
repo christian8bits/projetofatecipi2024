@@ -24,15 +24,15 @@ app.post('/pedidos', async (requisicao, resposta) => {
 app.post('/pedidosplanilha', async (requisicao, resposta) => {
     var dados = requisicao.body
     console.log(dados[3])
-        await db.Pedidos.bulkCreate(dados).then((dadosPedido) => {
-            return resposta.json({
-                mensagem: 'Pedido Cadastrado!', dadosPedido
-            })
-        }).catch(() => {
-            return resposta.status(400).json({
-                mensagem: 'Pedido NÃO Cadastrado!'
-            })
+    await db.Pedidos.bulkCreate(dados).then((dadosPedido) => {
+        return resposta.json({
+            mensagem: 'Pedido Cadastrado!', dadosPedido
         })
+    }).catch(() => {
+        return resposta.status(400).json({
+            mensagem: 'Pedido NÃO Cadastrado!'
+        })
+    })
 
 })
 
@@ -54,7 +54,7 @@ app.get('/pedidosTodos', async (requisicao, resposta) => {
     }
     // recupera usuários do banco de dados
     const pedidos = await db.Pedidos.findAll({
-        attributes: ['id', 'data', 'pedido', 'codigoev', 'comprador', 'cpfcnpj', 'destinatario', 'logradouro', 'numero', 'complemento', 'bairro', 'estado', 'cidade', 'cep', 'formaenvio', 'codigorastreio'],
+        attributes: ['id', 'dataPagamento', 'pedido', 'codigoev', 'comprador', 'cpfcnpj', 'destinatario', 'logradouro', 'numero', 'complemento', 'bairro', 'uf', 'cidade', 'cep', 'formaenvio','frete', 'valortotal', 'codigorastreio'],
         order: [['id', 'ASC']],
         // contabilizar limit de registros
         offset: Number((pagina * limit) - limit),
@@ -101,8 +101,10 @@ app.get('/pedidos', async (requisicao, resposta) => {
         })
     }
     // recupera usuários do banco de dados
-    const pedidos = ['id', 'data', 'pedido', 'codigoev', 'comprador', 'cpfcnpj', 'destinatario', 'logradouro', 'numero', 'complemento', 'bairro', 'estado', 'cidade', 'cep', 'formaenvio', 'codigorastreio'],
+    const pedidos = await db.Pedidos.findAll({
+        attributes: ['id', 'dataPagamento', 'pedido', 'codigoev', 'comprador', 'cpfcnpj', 'destinatario', 'logradouro', 'numero', 'complemento', 'bairro', 'uf', 'cidade', 'cep', 'formaenvio', 'codigorastreio','frete', 'valortotal'],
         order: [['id', 'ASC']],
+        // contabilizar limit de registros
         // contabilizar limit de registros
         offset: Number((pagina * limit) - limit),
         limit: limit
@@ -132,7 +134,7 @@ app.get('/pedido/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     console.log(id)
     const pedido = await db.Pedidos.findOne({
-        attributes: ['id', 'data', 'pedido', 'codigoev', 'comprador', 'cpfcnpj', 'destinatario', 'logradouro', 'numero', 'complemento', 'bairro', 'estado', 'cidade', 'cep', 'formaenvio', 'codigorastreio', 'createdAt', 'updatedAt'],
+        attributes: ['id', 'dataPagamento', 'pedido', 'codigoev', 'comprador', 'cpfcnpj', 'destinatario', 'logradouro', 'numero', 'complemento', 'bairro', 'uf', 'cidade', 'cep', 'formaenvio', 'codigorastreio', 'frete', 'valortotal', 'createdAt', 'updatedAt'],
         where: { id },
     })
     console.log(pedido)

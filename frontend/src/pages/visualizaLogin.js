@@ -17,8 +17,8 @@ export default function DetalhesLogin() {
             <main>
                 <Link href={'/'}><button type='button'>Clientes</button></Link>{' '}             
                 <h3>Detalhes do Cliente {data.id}</h3>
-                <span><strong>Usuário:</strong>......</span><br />
-                <span><strong>E-mail:</strong> ...... </span><br />
+                <span><strong>Usuário:</strong>......</span>
+                <span><strong>E-mail:</strong> ...... </span>
             </main>
         </>
     )

@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Livros.init({
     isbn: DataTypes.STRING,
+    codigoev: DataTypes.STRING,
     autor: DataTypes.STRING,
     titulo: DataTypes.STRING,
     tipolivro: DataTypes.STRING,
@@ -31,6 +32,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Livros',
-  });
+  })
   return Livros
 }

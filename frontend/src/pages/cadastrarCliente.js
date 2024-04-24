@@ -6,7 +6,7 @@ import { IMaskInput } from 'react-imask'
 
 export default function Cadastrar() {
     const [data, setData] = useState({
-        nome: '',
+        comprador: '',
         cpfcnpj: '',
         email: '',
         telefone: '',
@@ -25,8 +25,7 @@ export default function Cadastrar() {
     const addUser = async (e) => {
         e.preventDefault() // bloqueia recarregamento da página
         console.log('Chama API')
-        console.log('Cliente Nome: ' + data.nome)
-        console.log('Cliente E-mail: ' + data.email)
+        console.log('Cliente Nome: ' + data.comprador)
         const headers = {
             'headers': {
                 'Content-Type': 'application/json'
@@ -37,7 +36,7 @@ export default function Cadastrar() {
                 console.log(response.data.mensagem)
                 setMessage(response.data.mensagem)
                 setData({
-                    nome: '',
+                    comprador: '',
                     email: '',
                     cpfcnpj: '',
                     telefone: '',
@@ -69,7 +68,7 @@ export default function Cadastrar() {
             console.log(data.telefone)
 
             setData({
-            nome: data.nome,
+            comprador: data.comprador,
             cpfcnpj: data.cpfcnpj,
             email: data.email,
             telefone: data.telefone,
@@ -103,6 +102,7 @@ export default function Cadastrar() {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <main>
+                 <Link href={"/principal"}><button type='button'>Home</button></Link>{' '}
                 <Link href={'/listarClientes'}><button type='button'>Listar</button></Link>
 
                 <h2>Cadastrar Cliente</h2>
@@ -110,33 +110,35 @@ export default function Cadastrar() {
 
                 <form onSubmit={addUser}>
                     <label>Nome:  </label>
-                    <input type='text' name='nome' placeholder='Nome Completo' onChange={valueInput} value={data.nome} /> <br /><br />
+                    <input type='text' name='comprador' placeholder='Nome Completo' onChange={valueInput} value={data.comprador} />
                     <label>E-Mail: </label>
-                    <input type='email' name='email' placeholder='email@email.com' onChange={valueInput} value={data.email} /> <br /><br />
+                    <input type='email' name='email' placeholder='email@email.com' onChange={valueInput} value={data.email} /> 
                     <label>CPF/CNPJ:  </label>
-                    <IMaskInput mask={maskcpf} name='cpfcnpj' placeholder='000.000.000-00' onChange={valueInput} value={data.cpfcnpj}/> <br /><br />
+                    <IMaskInput mask={maskcpf} name='cpfcnpj' placeholder='000.000.000-00' onChange={valueInput} value={data.cpfcnpj}/> 
                     <label>Telefone:  </label>
-                    <IMaskInput mask={masktel} name='telefone' placeholder='(00) 00000-0000' onChange={valueInput} value={data.telefone}/> <br /><br />
+                    <IMaskInput mask={masktel} name='telefone' placeholder='(00) 00000-0000' onChange={valueInput} value={data.telefone}/> 
 
+       
                     <label>CEP:  </label>
                     <IMaskInput mask={maskcep} name='cep' placeholder='00000-000 ' onChange={valueInput} value={data.cep} />  
-                    <button type='button' onClick={() => buscaCEP(data.cep)}>Validar</button> <br /><br />
+                    <label> {' '}  </label>
+                    <button type='button'  class="button2" onClick={() => buscaCEP(data.cep)}>Buscar Cep</button> 
 
                     
                     <label>Logradouro:  </label>
-                    <input type='text' name='logradouro' placeholder=' ' onChange={valueInput} value={data.logradouro} /> <br /><br />
+                    <input type='text' name='logradouro' placeholder=' ' onChange={valueInput} value={data.logradouro} /> 
                     <label>Numero:  </label>
-                    <input type='number' name='numero' placeholder=' ' onChange={valueInput} value={data.numero} /> <br /><br />
+                    <input type='number' name='numero' placeholder=' ' onChange={valueInput} value={data.numero} /> 
                     <label>Bairro:  </label>
-                    <input type='text' name='bairro' placeholder=' ' onChange={valueInput} value={data.bairro} /> <br /><br />
+                    <input type='text' name='bairro' placeholder=' ' onChange={valueInput} value={data.bairro} /> 
                     <label>Complemento:  </label>
-                    <input type='text' name='complemento' placeholder=' ' onChange={valueInput} value={data.complemento} /> <br /><br />
+                    <input type='text' name='complemento' placeholder=' ' onChange={valueInput} value={data.complemento} /> 
                     <label>UF:  </label>
-                    <IMaskInput mask={maskuf} name='uf' placeholder='' onChange={valueInput} value={data.uf} /> <br /><br />
+                    <IMaskInput mask={maskuf} name='uf' placeholder='' onChange={valueInput} value={data.uf} /> 
                     <label>Cidade:  </label>
-                    <input type='text' name='cidade' placeholder=' ' onChange={valueInput} value={data.cidade} /> <br /><br />
+                    <input type='text' name='cidade' placeholder=' ' onChange={valueInput} value={data.cidade} /> 
 
-                    <button type='submit'>Salvar</button><br /><br />
+                    <button type='submit'>Salvar</button>
                 </form>
             </main>
         </>

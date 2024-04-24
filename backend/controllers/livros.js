@@ -55,7 +55,7 @@ app.get('/livrosTodos', async (requisicao, resposta) => {
     }
     // recupera usuários do banco de dados
     const livros = await db.Livros.findAll({
-        attributes: ['id', 'isbn', 'autor', 'titulo', 'tipolivro', 'idioma', 'estante', 'editora', 'ano', 'preco', 'edicao', 'peso', 'descricao', 'categoria', 'localizacao'],
+        attributes: ['id', 'isbn', 'codigoev', 'autor', 'titulo', 'tipolivro', 'idioma', 'estante', 'editora', 'ano', 'preco', 'edicao', 'peso', 'descricao', 'categoria', 'localizacao'],
         order: [['id', 'ASC']],
         // contabilizar limit de registros
         offset: Number((pagina * limit) - limit),
@@ -103,7 +103,7 @@ app.get('/livros', async (requisicao, resposta) => {
     }
     // recupera usuários do banco de dados
     const livros = await db.Livros.findAll({
-        attributes: ['id', 'isbn', 'autor', 'titulo', 'tipolivro', 'idioma', 'estante', 'editora', 'ano', 'preco', 'edicao', 'peso', 'descricao', 'categoria', 'localizacao'],
+        attributes: ['id', 'isbn', 'codigoev', 'autor', 'titulo', 'tipolivro', 'idioma', 'estante', 'editora', 'ano', 'preco', 'edicao', 'peso', 'descricao', 'categoria', 'localizacao'],
         order: [['id', 'ASC']],
         // contabilizar limit de registros
         offset: Number((pagina * limit) - limit),
@@ -134,7 +134,7 @@ app.get('/livro/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     console.log(id)
     const livro = await db.Livros.findOne({
-        attributes: ['id', 'isbn', 'autor', 'titulo', 'tipolivro', 'idioma', 'estante', 'editora', 'ano', 'preco', 'edicao', 'peso', 'descricao', 'categoria', 'localizacao', 'createdAt', 'updatedAt'],
+        attributes: ['id', 'isbn', 'codigoev', 'autor', 'titulo', 'tipolivro', 'idioma', 'estante', 'editora', 'ano', 'preco', 'edicao', 'peso', 'descricao', 'categoria', 'localizacao'],
         where: { id },
     })
     console.log(livro)

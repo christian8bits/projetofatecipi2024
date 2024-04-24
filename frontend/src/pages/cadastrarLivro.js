@@ -72,19 +72,20 @@ export default function Livro() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-      <Link href={'/listarLivros'}><button type='button'>Listar</button></Link>{' '}
+        <Link href={"/principal"}><button type='button'>Home</button></Link>{' '}
+        <Link href={'/listarLivros'}><button type='button'>Listar</button></Link>{' '}
         <h2>Cadastro Novo Livro</h2>
         {mensagem ? <p>{mensagem}</p> : ''}
 
         <form onSubmit={cadastrarLivro}>
           <label>ISBN: </label>
-          <input type='text' name='isbn' placeholder='' onChange={valueInput} value={data.isbn} /><br /><br />
+          <input type='text' name='isbn' placeholder='' onChange={valueInput} value={data.isbn} />
           <label>Titulo: </label>
-          <input type='text' name='titulo' placeholder='' onChange={valueInput} value={data.titulo} /><br /><br />
+          <input type='text' name='titulo' placeholder='' onChange={valueInput} value={data.titulo} />
           <label>Autor: </label>
-          <input type='text' name='autor' placeholder='' onChange={valueInput} value={data.autor} /><br /><br />
+          <input type='text' name='autor' placeholder='' onChange={valueInput} value={data.autor} />
           <label>Editora: </label>
-          <input type='text' name='editora' placeholder='' onChange={valueInput} value={data.editora} /><br /><br />
+          <input type='text' name='editora' placeholder='' onChange={valueInput} value={data.editora} />
 
           <label>Tipo: </label>
           <select name="tipolivro" defaultValue="Novo" onChange={valueInput} value={data.tipolivro}>
@@ -184,31 +185,31 @@ export default function Livro() {
             <option value="Teatro">	Teatro	</option>
             <option value="Turismo">	Turismo	</option>
           </select>
-          <br /><br />
+
 
 
           <label>Ano: </label>
-          <input type='text' name='ano' placeholder='' onChange={valueInput} value={data.ano} /><br /><br />
+          <input type='text' name='ano' placeholder='' onChange={valueInput} value={data.ano} />
           <label>Preço: </label>
-          <input type='text' name='preco' placeholder='' onChange={valueInput} value={data.preco} /><br /><br />
+          <input type='text' name='preco' placeholder='' onChange={valueInput} value={data.preco} />
           <label>Edição: </label>
-          <input type='text' name='edicao' placeholder='' onChange={valueInput} value={data.edicao} /><br /><br />
+          <input type='text' name='edicao' placeholder='' onChange={valueInput} value={data.edicao} />
           <label>Peso: </label>
-          <input type='text' name='peso' placeholder='' onChange={valueInput} value={data.peso} /><br /><br />
-          <label>Descrição: </label><br />
-          <textarea name="descricao" rows={4} cols={40} onChange={valueInput} value={data.descricao} /><br /><br />
+          <input type='text' name='peso' placeholder='' onChange={valueInput} value={data.peso} />
+          <label>Descrição: </label>
+          <textarea name="descricao" rows={4} cols={30} onChange={valueInput} value={data.descricao} />
           <label>Categoria: </label>
-          <input type='text' name='categoria' placeholder='' onChange={valueInput} value={data.categoria} /><br /><br />
+          <input type='text' name='categoria' placeholder='' onChange={valueInput} value={data.categoria} />
           <label>Localização: </label>
-          <input type='text' name='localizacao' placeholder='' onChange={valueInput} value={data.localizacao} /><br /><br />
+          <input type='text' name='localizacao' placeholder='' onChange={valueInput} value={data.localizacao} />
 
 
-    
 
-          <button type='submit'>Salvar</button><br /><br />
+
+          <button type='submit'>Salvar</button>
         </form>
 
-        <br /><br />
+
         <p>Sistema para acompanhar envios de livros</p>
 
       </main>

@@ -36,7 +36,7 @@ app.get('/clientes', async (requisicao, resposta) => {
     }
     // recupera usuários do banco de dados
     const clientes = await db.Clientes.findAll({
-        attributes: ['id', 'nome', 'email', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero', 'bairro', 'complemento', 'uf', 'cidade'],
+        attributes: ['id', 'comprador', 'email', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero', 'bairro', 'complemento', 'uf', 'cidade'],
         order: [['id', 'ASC']],
         // contabilizar limit de registros
         offset: Number((pagina * limit) - limit),
@@ -67,7 +67,7 @@ app.get('/cliente/:id', async (requisicao, resposta) => {
     const { id } = requisicao.params
     console.log(id)
     const cliente = await db.Clientes.findOne({
-        attributes: ['id', 'nome', 'email', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero', 'bairro', 'complemento', 'uf', 'cidade', 'createdAt', 'updatedAt'],
+        attributes: ['id', 'comprador', 'email', 'cpfcnpj', 'telefone', 'cep', 'logradouro', 'numero', 'bairro', 'complemento', 'uf', 'cidade', 'createdAt', 'updatedAt'],
         where: { id },
     })
     console.log(cliente)
@@ -95,6 +95,25 @@ app.put('/clientes', async (requisicao, resposta) => {
             })
         })
 })
+
+// rota cadastrar planilha em http://localhost:8080/clientes
+app.post('/clientesplanilha', async (requisicao, resposta) => {
+    var dados = requisicao.body
+    console.log(dados[3])
+    await db.Clientes.bulkCreate(dados).then((dadosCliente) => {
+        return resposta.json({
+            mensagem: 'Clientes Cadastrados!', dadosCliente
+        })
+    }).catch(() => {
+        return resposta.status(400).json({
+            mensagem: 'Clientes NÃO Cadastrados!'
+        })
+    })
+
+})
+
+
+
 
 // rota apagar ex: http://localhost:8080/clientes/1
 app.delete('/clientes/:id', async (requisicao, resposta) => {

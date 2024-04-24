@@ -54,13 +54,13 @@ export default function Home() {
         {mensagem ? <p>{mensagem}</p> : ''}
         <form onSubmit={entrarLogin}>
           <label>Usuário: </label>
-          <input type='text' name='usuario' placeholder='Digite o nome' onChange={valueInput} value={data.usuario} /><br /><br />
+          <input type='text' name='usuario' placeholder='Digite o nome' onChange={valueInput} value={data.usuario} />
           <label>Senha: </label>
-          <input type='password' name='senha' placeholder='Digite sua Senha' onChange={valueInput} value={data.senha} /><br /><br />
+          <input type='password' name='senha' placeholder='Digite sua Senha' onChange={valueInput} value={data.senha} />
           <Link href={'/cadastrarLogin'}> <button type='button'>Cadastrar</button></Link>{' '}
-          <button type='submit'>Entrar</button><br /><br />
+          <button type='submit'>Entrar</button>
         </form>
-        <p>Sistema para acompanhar envios de livros</p>
+        <p>Administração de pedidos e acompanhamento de envios</p>
 
       </main>
     </>

@@ -1,54 +1,45 @@
-'use strict';
+'use strict'
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Livros', {
+    await queryInterface.createTable('Clientes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      isbn: {
+      comprador: {
         type: Sequelize.STRING
       },
-      autor: {
+      cpfcnpj: {
         type: Sequelize.STRING
       },
-      titulo: {
+      email: {
         type: Sequelize.STRING
       },
-      tipolivro: {
+      telefone: {
         type: Sequelize.STRING
       },
-      idioma: {
+      cep: {
         type: Sequelize.STRING
       },
-      estante: {
+      logradouro: {
         type: Sequelize.STRING
       },
-      editora: {
+      numero: {
         type: Sequelize.STRING
       },
-      ano: {
+      bairro: {
         type: Sequelize.STRING
       },
-      preco: {
+      complemento: {
         type: Sequelize.STRING
       },
-      edicao: {
+      uf: {
         type: Sequelize.STRING
       },
-      peso: {
-        type: Sequelize.STRING
-      },
-      descricao: {
-        type: Sequelize.STRING
-      },
-      categoria: {
-        type: Sequelize.STRING
-      },
-      localizacao: {
+      cidade: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -62,6 +53,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Livros');
+    await queryInterface.dropTable('Clientes')
   }
-};
+}
